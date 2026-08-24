@@ -1,0 +1,42 @@
+# macOS
+.DS_Store
+
+# Локальная разработка
+vipclinik.com/wp-config-local.php
+vipclinik_s.sql.gz
+*.sql
+*.sql.gz
+
+# Секреты (на проде свой wp-config.php)
+vipclinik.com/wp-config.php
+
+# WordPress runtime — не версионируем
+vipclinik.com/wp-content/cache/
+vipclinik.com/wp-content/uploads/
+vipclinik.com/wp-content/debug.log
+vipclinik.com/wp-content/wflogs/
+vipclinik.com/wp-content/upgrade/
+vipclinik.com/wp-content/backup-db/
+vipclinik.com/wp-content/backups/
+
+# Ядро WP и плагины — уже на Beget, в git только то, что меняем
+vipclinik.com/*
+!vipclinik.com/wp-config.example.php
+!vipclinik.com/wp-content/
+vipclinik.com/wp-content/*
+!vipclinik.com/wp-content/themes/
+vipclinik.com/wp-content/themes/*
+!vipclinik.com/wp-content/themes/clinic/
+!vipclinik.com/wp-content/plugins/
+vipclinik.com/wp-content/plugins/*
+!vipclinik.com/wp-content/plugins/types/
+vipclinik.com/wp-content/plugins/types/*
+!vipclinik.com/wp-content/plugins/types/embedded/
+vipclinik.com/wp-content/plugins/types/embedded/*
+!vipclinik.com/wp-content/plugins/types/embedded/common/
+vipclinik.com/wp-content/plugins/types/embedded/common/*
+!vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/
+vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/*
+!vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/lib/
+vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/lib/*
+!vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/lib/adodb-time.inc.php

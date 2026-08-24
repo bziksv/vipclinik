@@ -1,0 +1,3187 @@
+/*
+
+Theme name: Clinic
+
+Description: Елена Байбарина-Тимошенко - центр врачебной косметологии
+
+Author: Aleksandrlao
+
+Author URI: http://aleksandrlao.ru
+
+*/
+
+
+
+
+
+
+
+.alignleft {display: inline;float: left;margin-right: 1.625em;}
+
+.alignright {display: inline;float: right;margin-left: 1.625em;}
+
+.aligncenter {clear: both;display: block;margin-left: auto;margin-right: auto;}
+
+
+
+
+
+
+
+/* font-family: "ProximaNovaRegular"; */
+
+@font-face {
+
+    font-family: "ProximaNovaRegular";
+
+    src: url("fonts/ProximaNovaRegular/ProximaNovaRegular.eot");
+
+    src: url("fonts/ProximaNovaRegular/ProximaNovaRegular.eot?#iefix")format("embedded-opentype"),
+
+    url("fonts/ProximaNovaRegular/ProximaNovaRegular.woff") format("woff"),
+
+    url("fonts/ProximaNovaRegular/ProximaNovaRegular.ttf") format("truetype");
+
+    font-style: normal;
+
+    font-weight: normal;
+
+}
+
+/* font-family: "ProximaNovaBold"; */
+
+@font-face {
+
+    font-family: "ProximaNovaBold";
+
+    src: url("fonts/ProximaNovaBold/ProximaNovaBold.eot");
+
+    src: url("fonts/ProximaNovaBold/ProximaNovaBold.eot?#iefix")format("embedded-opentype"),
+
+    url("fonts/ProximaNovaBold/ProximaNovaBold.woff") format("woff"),
+
+    url("fonts/ProximaNovaBold/ProximaNovaBold.ttf") format("truetype");
+
+    font-style: normal;
+
+    font-weight: normal;
+
+}
+
+@font-face {
+
+	font-family: "BookAntiqua";
+
+	src: url('fonts/BookAntiqua/book-antiqua.eot');
+
+	src: local('☺'), url('fonts/BookAntiqua/book-antiqua.woff') format('woff'), 
+
+	url('fonts/BookAntiqua/book-antiqua.ttf') format('truetype'), 
+
+	url('fonts/BookAntiqua/book-antiqua.svg') format('svg');
+
+	font-weight: normal;
+
+	font-style: normal;
+
+}
+
+/* font-family: "ClearSansLight"; */
+
+@font-face {
+
+    font-family: "ClearSansLight";
+
+    src: url("fonts/ClearSansLight/ClearSansLight.eot");
+
+    src: url("fonts/ClearSansLight/ClearSansLight.eot?#iefix")format("embedded-opentype"),
+
+    url("fonts/ClearSansLight/ClearSansLight.woff") format("woff"),
+
+    url("fonts/ClearSansLight/ClearSansLight.ttf") format("truetype");
+
+    font-style: normal;
+
+    font-weight: normal;
+
+}
+
+@font-face {
+
+	font-family: 'Arsis';
+
+	src: url('fonts/Arsis/Arsis.eot');
+
+	src: local('☺'), url('fonts/Arsis/Arsis.woff') format('woff'), 
+
+	url('fonts/Arsis/Arsis.ttf') format('truetype'), 
+
+	url('fonts/Arsis/Arsis.svg') format('svg');
+
+	font-weight: normal;
+
+	font-style: normal;
+
+}
+
+
+
+
+
+
+
+* {
+
+	margin: 0;
+
+	padding: 0;
+
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+
+	display: block;
+
+}
+
+body {
+
+	font: 12px/18px Arial, sans-serif;
+
+	width: 100%;
+
+}
+
+.wrapper {
+	position: relative;
+	width: 100%;
+
+	min-width: 960px;
+
+}
+
+.wrapper:after {
+
+	position: absolute;
+
+	content: "";
+
+	top: 32px;
+
+	left: 32px;
+
+	border: 1px solid #988454;
+
+	width: calc(100% - 66px);
+
+	height: 1566px;
+
+	z-index: 55;
+
+	background: transparent;
+
+}
+
+.ins {
+
+	width: 960px;
+
+	margin: auto;
+
+	position: relative;
+
+	overflow: hidden;
+
+	padding-top: 1px;
+
+}
+
+a {
+
+	text-decoration: underline;
+
+}
+
+a:hover {
+
+	text-decoration: none;
+
+}
+
+p {
+
+	margin-bottom: 22px;
+
+}
+
+
+
+.bg {
+
+	position: fixed;
+
+	width: 100% !important;
+
+	height: 100% !important;
+
+	background: rgba(254,254,254,0.95);
+
+	z-index: 200;
+
+	display: none;	
+
+}
+
+.bg.active {
+
+	display: block;
+
+}
+
+.h_modal {
+
+	position: absolute;
+
+	top: 10%;
+
+	left: 50%;
+
+	width: 630px;
+	margin-left: -315px;
+
+	background: #f1f1f1;
+
+	z-index: 220;
+
+	display: none;
+
+	padding-bottom: 170px;
+
+
+
+}
+
+.h_modal.active {
+
+	display: block;
+
+}
+
+.m_title {
+
+	text-align: center;
+
+	color: #3F3F3F;
+
+	font: 28px/32px "BookAntiqua";
+
+	margin: 40px 0;
+
+	text-transform: uppercase;
+
+}
+
+.m_close {
+
+	position: absolute;
+
+	width: 55px;
+
+	height: 55px;
+
+	background: url('i/bg-close.png') no-repeat;
+
+	top: 15px;
+
+	right: 10px;
+
+	cursor: pointer;
+
+}
+
+.m_nav {
+
+	text-align: center;
+
+}
+
+.m_nav ul {
+
+	list-style: none;
+
+}
+
+.m_nav ul li {
+
+	margin-bottom: 14px;
+
+}
+
+.m_nav ul li a {
+
+	color: #333;
+
+	text-decoration: none;
+
+	font: 18px/24px "ClearSansLight";
+
+	text-transform: uppercase;
+
+	position: relative;
+
+	z-index: 50;
+
+}
+
+.m_nav ul li a:hover {
+
+	text-decoration: underline;
+
+}
+
+.m_nav ul li .sub-menu {
+
+	width: 420px;
+
+	margin: -10px auto 0;
+
+	background: #D3BB91;
+
+	position: relative;
+
+	padding: 40px 0 20px;
+
+	z-index: 40;
+
+}
+
+.m_nav ul li .sub-menu li {
+
+	margin-bottom: 4px;
+
+}
+
+.m_nav ul li .sub-menu li a {
+
+	font-size: 14px;
+
+	line-height: 18px;
+
+	color: #FEFEFE;
+
+}
+
+
+
+.send_modal-form {
+
+	width: 420px;
+
+	margin: 0 auto -120px;
+
+	background: #D3BB91;
+
+	padding-top: 60px;
+
+}
+
+.send_modal-form textarea{
+	
+	display: block;
+
+	width: 188px;
+
+	padding-left: 18px;
+
+	height: 65px;
+
+	margin: 0 auto 24px;
+
+	border: none;
+
+	outline: none;
+
+	background: #FFF;
+
+	text-transform: uppercase;
+
+	color: #4A4A4A;
+
+	font: 13px/32px "ClearSansLight";
+	
+}
+
+.send_modal-form input,
+ .send_modal-form select {
+
+	display: block;
+
+	width: 188px;
+
+	padding-left: 18px;
+
+	height: 35px;
+
+	margin: 0 auto 24px;
+
+	border: none;
+
+	outline: none;
+
+	background: #FFF;
+
+	text-transform: uppercase;
+
+	color: #4A4A4A;
+
+	font: 13px/32px "ClearSansLight";
+
+}
+
+.send_modal-form select {
+
+	width: 206px;
+
+}
+
+.send_modal-form input[type="submit"] {
+
+	width: 300px;
+
+	padding-left: 0;
+
+	height: 64px;
+
+	text-align: center;
+
+	background: #DBCFBB;
+
+	color: #4A4A4A;
+
+	font: 13px/32px "ClearSansLight";
+
+	cursor: pointer;
+
+	margin-top: 36px;
+
+}
+
+.send_modal-sel-box {
+
+	display: none;
+
+}
+
+
+
+.c_txt .send_page-form{
+	width: 340px;
+    margin: 0 auto;
+	background:none;
+    padding-top: 60px;
+}
+
+.c_txt .send_page-form input,
+.c_txt .send_page-form textarea,
+.c_txt .send_page-form select {
+    display: block;
+    width: 100%;
+    padding-left: 18px;
+    height: 45px;
+    margin: 0 auto 10px;
+    outline: none;
+    background: #FFF;
+    text-transform: uppercase;
+    color: #4A4A4A;
+    font: 13px/32px "ClearSansLight";
+    border: 1px solid #D3BB91;
+	box-sizing: border-box;
+}
+
+.c_txt .send_page-form textarea{
+	height:100px;
+}
+
+.c_txt .send_page-form .wpcf7-checkbox .wpcf7-list-item{
+	display: block;
+	margin-left: 0;
+    margin-right: 0;
+}
+
+.send_page-form .wpcf7-checkbox .wpcf7-list-item input[type="checkbox"] {
+    margin: 0;
+}
+
+.send_page-form input[type="submit"] {
+    padding-left:0;
+	background:#D3BB91;
+	color:#FFF;
+	font-size:13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Header ----------------------------------------------------------------------------- */
+
+.header {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	height: auto;
+
+	background: #f1f1f1 url('i/bg-top.jpg') top center no-repeat;
+
+	position: relative;
+
+	overflow: hidden;
+
+}
+
+.h_top {
+
+	width: 1120px;
+
+	height: 125px;
+
+	position: relative;
+
+	z-index: 70;
+
+}
+
+.h_top-bags {
+
+	display: block;
+
+	width: 70px;
+
+	height: 108px;
+
+	background: rgba(211, 187, 145, 0.6) url('i/bg-bags.png') center 52px no-repeat;
+
+	float: left;
+
+}
+
+.h_tovar {
+
+	float: left;
+
+	width: 170px;
+
+	height: 70px;
+
+	margin-top: 35px;
+
+	background: rgba(211, 187, 145, 0.4);
+
+}
+
+.h_tovar a {
+
+	display: block;
+
+	color: #000;
+
+	font: 12px/21px "BookAntiqua";
+
+	padding: 17px 0 0 10px;
+
+	text-transform: uppercase;
+
+	text-decoration: none;
+
+}
+
+.h_top-nav {
+
+	position: absolute;
+
+	top: 60px;
+
+	left: 50%;
+
+	display: block;
+
+	width: 42px;
+
+	height: 50px;
+
+	margin-left: -21px;
+
+}
+
+.h_top-nav span {
+
+	display: block;
+
+	width: 42px;
+
+	height: 10px;
+
+	border-top: 3px solid #000;
+
+	border-bottom: 3px solid #000;
+
+	margin-bottom: 10px;
+
+}
+
+.h_top-phone {
+	color: #232429;
+	font: 20px/24px 'Oranienbaum', "BookAntiqua";
+}
+
+.h_top-right{
+	float: right;
+	margin-top: 45px;
+}
+
+.top_logo{
+	float: left;
+	margin-top: 40px;
+}
+
+
+.h_mid {
+
+	width: 960px;
+
+	height: 670px;
+
+	position: relative;
+
+	overflow: visible;
+
+	z-index: 70;
+
+}
+
+.h_mid:after {
+
+	position: absolute;
+
+	content: "";
+
+	bottom: 0;
+
+	left: 50%;
+
+	margin-left: -560px;
+
+	width: 1120px;
+
+	height: 660px;
+
+	background: url('i/bg-head-mid.jpg') no-repeat;
+
+	z-index: 10;
+
+}
+
+.h_mid-page {
+
+	height: 410px;
+
+}
+
+.h_mid-page:after {
+
+	height: 380px;
+
+	background: url('i/bg-head-mid-page.jpg') top center no-repeat;
+
+}
+
+.h_mid-name {
+
+	display: block;
+
+	width: 380px;
+
+	height: 111px;
+
+	margin: 2px auto 0;
+
+	background: url('i/bg-name.png') no-repeat;
+
+	position: relative;
+
+	z-index: 20;
+
+	text-indent: -2989px;
+
+}
+
+.h_mid-desc {
+
+	text-align: center;
+
+	font: 34px/30px 'Arsis';
+
+	color: #F1F1F1;
+
+	margin-top: 10px;
+
+	position: relative;
+
+	z-index: 20;
+
+	letter-spacing: 1.5px;
+
+}
+
+.h_mid-logo {
+
+	display: block;
+
+	width: 179px;
+
+	height: 130px;
+
+	background: url('i/bg-logo.png') no-repeat;
+
+	position: absolute;
+
+	z-index: 20;
+
+	bottom: 33px;
+
+	left: 50%;
+
+	margin-left: -89px;
+
+}
+
+
+
+.h_bot {
+
+	width: 960px;
+
+	margin: 70px auto 90px;
+
+	position: relative;
+
+	overflow: visible;
+
+}
+
+.h_bot:after {
+
+	position: absolute;
+
+	content: "";
+
+	top: 50px;
+
+	left: 540px;
+
+	width: 479px;
+
+	height: 469px;
+
+	background: url('i/bg-hbot.jpg') no-repeat;
+
+}
+
+.h_bot-title {
+
+	font: 32px/44px "ProximaNovaBold";
+
+	color: #2F2F2F;
+
+	width: 720px;
+
+	margin-bottom: 50px;
+
+}
+
+.h_bot-txt {
+	
+	position: relative;
+
+	font: 14px/18px Arial;
+
+	color: #2F2F2F;
+
+	width: 500px;
+
+	min-height: 410px;
+	
+	z-index: 60;
+
+}
+
+
+
+
+
+
+
+.h_bann {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	height: 245px;
+
+	background: url('i/bg-hbanner.jpg') top center no-repeat;
+
+	position: relative;
+
+	z-index: 80;
+
+	margin-top: -60px;	
+
+}
+
+
+
+
+
+
+
+/* Middle ----------------------------------------------------------------------------- */
+
+.content {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	background: #FFF;
+
+	position: relative;
+
+}
+
+.page {
+
+	margin-top: -100px;
+
+	padding-top: 60px;
+
+}
+
+.page .ins {
+
+	z-index: 60;
+
+}
+
+.c_page {
+
+	width: 100%;
+
+	min-width: 950px;
+
+	max-width: 1400px;
+
+	margin: 0 auto 45px;
+
+	padding: 85px 0px 40px;
+
+	background: #F1F1F1;
+
+	position: relative;
+
+	z-index: 58;
+
+}
+
+.c_side {
+
+	float: left;
+
+	width: 305px;
+
+}
+
+.c_box {
+
+	float: right;
+
+	width: 615px;
+
+}
+
+.c_cart {
+
+	width: 960px;
+
+}
+
+.c_box h1 {
+
+	color: #3F3F3F;
+
+	font: 24px/30px "BookAntiqua";
+
+	text-transform: uppercase;
+
+	margin-bottom: 15px;
+
+}
+
+
+
+.c_txt {
+
+	border: 2px solid #D3BB91;
+
+	padding: 32px;
+
+	background: #fff;
+
+	margin-top: 35px;
+
+	overflow: hidden;
+
+	color: #2F2F2F;
+
+	font:14px/19px 'Times New Roman', "BookAntiqua";
+
+	letter-spacing: 1px;
+
+}
+
+.c_txt h2, .c_txt h3 {
+
+	font-size: 15px;
+
+	line-height: 21px;
+
+	margin-bottom: 20px;
+
+	text-transform: uppercase;
+
+}
+
+.c_txt img {
+
+	max-width: 547px;
+
+	height: auto;
+
+}
+
+.c_txt ul {
+
+	margin: 0 0 20px 20px;
+
+}
+.c_txt table {
+	width: 100% !important;
+}
+.c_txt table tr td {
+	padding: 5px;
+}
+.c_txt table tr td img {
+	width: 100% !important;
+	height: auto !important;
+}
+
+
+
+
+
+
+
+
+
+/* Index work list -------------------------------- */
+
+.ind_work {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	background: #D5B88F;
+
+	padding: 100px 0 150px;
+
+	position: relative;
+
+	z-index: 35;
+
+	margin-top: -57px;
+
+	color: #FFF;
+
+}
+
+.ind_work .ins {
+
+	overflow: visible;
+
+}
+
+.slide {
+
+	width: 960px;
+
+}
+
+#slider {
+
+	min-height: 330px;	
+
+}
+
+#nextbutton, #prewbutton {
+
+	display: block;
+
+	width: 27px;
+
+	height: 25px;
+
+	position: absolute;
+
+	top: 0;
+
+	background: url('i/bg-slide-arrow.png') no-repeat;
+
+	z-index: 80;
+
+	right: 130px;
+
+	text-indent: -1989px;
+
+}
+
+#nextbutton {
+
+	right: 0;
+
+	background-position: -27px 0;
+
+}
+
+.control-slide {
+
+	position: absolute;
+
+	top: 0;
+
+	right: 27px;
+
+	width: 102px;
+
+	text-align: center;
+
+	display: none;
+
+	color: #FFF;
+
+	font: 37px/25px 'Arsis';
+
+	letter-spacing: 1px;
+
+}
+
+.control-slide.active {
+
+	display: block;
+
+}
+
+
+
+
+
+.ind_work-title {
+
+	font: 26px/40px "ProximaNovaBold";
+
+	margin-bottom: 24px;
+
+	width: 500px;
+
+}
+
+.ind_work-title span {
+
+	display: block;
+
+	font-size: 53px;
+
+}
+
+.ind_work-txt {
+
+	font: 18px/24px "BookAntiqua";
+
+	width: 540px;
+
+	min-height: 210px;
+
+	float: left;
+
+}
+
+.ind_work-thumbs {
+
+	float: right;
+
+	width: 410px;
+
+	vertical-align: middle;
+
+	text-align: center;
+	background: url('i/white-bg.png');
+margin-top: -60px;
+}
+
+.ind_work-thumbs img {
+
+	display: inline-block;
+
+	max-width: 360px;
+
+}
+
+
+
+
+
+
+
+
+
+/* index service --------------------------------------- */
+
+.ind_serv {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	min-height: 625px;
+
+	overflow: visible;
+
+	position: relative;
+
+	z-index: 40;
+
+	margin-top: -130px;
+
+	overflow: hidden;
+
+}
+
+.ind_serv:after, .ind_serv:before {
+
+	position: absolute;
+
+	content: "";
+
+	width: 1410px;
+
+	height: 130px;
+
+	top: 0;
+
+	left: 50%;
+
+	margin-left: -705px;
+
+	background: #38332c;
+
+	z-index: 30;
+
+}
+
+.ind_serv:before {
+
+	top: 130px;
+
+	height: 285px;
+
+	background: #3f3f3f;
+
+}
+
+.ind_serv .ins {
+
+	z-index: 33;
+
+}
+
+.ind_serv-top {
+
+	height: 129px;
+
+}
+
+.ind_serv-title {
+
+	font: 43px/38px 'Arsis';
+
+	color: #FFF;
+
+	text-align: center;
+
+	margin: 27px 0 20px;
+
+}
+
+.ind_serv-desc {
+
+	text-align: center;
+
+	color: #FFF;
+
+	font: 14px/18px "ClearSansLight";
+
+}
+
+.ind_serv-tabs {
+
+	overflow: hidden;
+
+}
+
+.ind_serv-tabs__caption {
+
+	list-style: none;
+
+	text-align: center;
+
+	font-size: 0;
+
+	margin: 20px 0;
+
+}
+
+.ind_serv-tabs__caption li {
+
+	display: inline-block;
+
+	width: 130px;
+
+	border-top: 2px solid transparent;
+
+	margin: 0 15px;
+
+	position: relative;
+
+	color: #D5B88F;
+
+	font: 12px/18px "BookAntiqua";
+
+	padding: 5px 0;
+
+	cursor: pointer;
+
+}
+
+.ind_serv-tabs__caption li.active {
+
+	border-top: 2px solid #988454;
+
+	cursor: default;
+
+}
+
+.ind_serv-tabs__caption li:after {
+
+	position: absolute;
+
+	content: "";
+
+	top: 18px;
+
+	left: -12px;
+
+	width: 3px;
+
+	height: 3px;
+
+	-webkit-border-radius: 100%;
+
+	border-radius: 100%;
+
+	background: #988454;
+
+}
+
+.ind_serv-tabs__caption li:first-child:after {
+
+	display: none;
+
+}
+
+.ind_serv-tabs__content {
+
+	display: none;
+
+	position: relative;
+
+}
+
+.ind_serv-tabs__content.active {
+
+	display: block;
+
+}
+
+
+
+.ind_serv-tabs-carousel {
+
+	width: 700px;
+
+	margin: 10px auto;
+
+}
+
+.ind_serv-tabs-carousel ul {
+
+	list-style: none;
+
+}
+
+.ind_serv-tabs-carousel ul li {
+
+	width: 205px;
+
+	height: 365px;
+
+	overflow: visible;
+
+	margin: 10px 14px;
+
+	float: left;
+
+}
+
+.ind_serv-tabs-carousel ul li a {
+
+	display: block;
+
+	width: 205px;
+
+	position: relative;
+
+	padding-bottom: 32px;
+
+}
+
+.ind_serv-tabs-thumbs {
+
+	display: block;
+
+	width: 205px;
+
+	height: 333px;
+
+	position: relative;
+
+	z-index: 10;
+
+}
+
+.ind_serv-tabs-thumbs img {
+
+	display: block;
+
+	width: 205px;
+
+	height: 333px;
+
+}
+
+.ind_serv-tabs-name {
+
+	position: absolute;
+
+	z-index: 15;
+
+	bottom: 0;
+
+	left: 5px;
+
+	width: 185px;
+
+	min-height: 33px;
+
+	background: rgba(254,254,254,0.65);
+
+	font: bold 17px/23px "BookAntiqua";
+
+	color: #4B4B4B;
+	padding: 10px 5px;
+	text-align: center;
+}
+
+.ind_serv-tabs-name:after {
+
+	position: absolute;
+
+	content: "";
+
+	top: 6px;
+
+	left: 5px;
+
+	background: transparent;
+
+	width: 179px;
+
+	height: calc(100% - 16px);
+
+	border: 2px solid #988454;
+
+}
+
+.ind_serv-tabs-next, .ind_serv-tabs-prev {
+
+	position: absolute;
+
+	width: 38px;
+
+	height: 75px;
+
+	background: url('i/bg-arrow.png') no-repeat;
+
+	top: 247px;
+
+	cursor: pointer;
+
+}
+
+.ind_serv-tabs-next {
+
+	background-position: 0 0;
+
+	left: 0;
+
+}
+
+.ind_serv-tabs-prev {
+
+	background-position: -38px 0;
+
+	right: 0;
+
+}
+
+
+
+
+
+/* Index Bestseller ------------------------------------------- */
+
+.ind_best {
+
+	width: 100%;
+
+	max-width: 1410px;
+
+	min-width: 960px;
+
+	margin: auto;
+
+	padding: 60px 0 64px;
+
+	background: #f1f1f1;
+
+	overflow: visible;
+
+	position: relative;
+
+	z-index: 40;
+
+}
+
+.ind_best .ins {
+
+	z-index: 40;
+
+}
+
+.ind_best-info {
+
+	float: left;
+
+	width: 327px;
+
+}
+
+.ind_best-title {
+
+	color: #3F3F3F;
+
+	font: 24px/28px "BookAntiqua";
+
+	margin: 20px 10px;
+
+	text-transform: uppercase;
+
+}
+
+.ind_best-desc {
+
+	color: #3F3F3F;
+
+	font: 14px/18px "ClearSansLight";
+
+	margin: 0 10px 36px 12px;
+
+	text-transform: uppercase;
+
+}
+
+.ind_best-btn {
+
+	display: block;
+
+	width: 274px;
+
+	height: 43px;
+
+	background: transparent;
+
+	border: 1px solid #2d2d2d;
+
+	text-align: center;
+
+	text-decoration: none;
+
+	color: #3F3F3F;
+
+	font: 14px/43px "BookAntiqua";
+
+	text-transform: uppercase;
+
+}
+
+
+
+
+
+/* Index vigoda ------------------------------------ */
+
+.ind_vigod {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	background: #DBCFBB;
+
+	position: relative;
+
+	z-index: 60;
+
+	padding: 70px 0 40px;
+	color: #FFF;
+
+}
+
+.ind_vigod-title {
+
+	text-align: center;
+
+	font: 38px/40px "BookAntiqua";
+
+	margin-bottom: 10px;
+
+	text-transform: uppercase;
+
+}
+
+.ind_vigod-desc {
+
+	text-align: center;
+
+	font: 15px/23px 'Georgia';
+
+	letter-spacing: 1.2px;
+
+	margin-bottom: 30px;
+
+}
+
+.ind_vigod-btn {
+
+	display: block;
+
+	width: 274px;
+
+	height: 43px;
+
+	background: transparent;
+
+	border: 1px solid #fff;
+
+	text-align: center;
+
+	text-decoration: none;
+
+	color: #fff;
+
+	font: 14px/43px "BookAntiqua";
+
+	text-transform: uppercase;
+
+	margin: auto;
+
+}
+
+
+
+
+
+
+
+/* Index Action ------------------------------------ */
+
+.ind_act {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	background: #e2ddd9;
+
+	position: relative;
+
+	z-index: 75;
+
+	padding-bottom: 50px;
+
+}
+
+.ind_act:after {
+
+	position: absolute;
+
+	content: "";
+
+	width: 100%;
+
+	min-width: 960px;
+
+	height: 40px;
+
+	top: 0;
+
+	left: 0;
+
+	background: #DBCFBB;
+
+	z-index: 40;
+
+}
+
+.ind_act-list {
+
+	text-align: center;
+
+	font-size: 0;
+
+	z-index: 45;
+
+}
+
+.ind_act-box {
+
+	display: inline-block;
+
+	width: 200px;
+
+	margin: 0 16px 16px;
+
+	text-align: left;
+
+	vertical-align: top;
+
+}
+.ind_act-box a {
+	text-decoration: none;
+	color: #2F2F2F;
+}
+.ind_act-box a:hover {
+	text-decoration: underline;
+}
+
+.ind_act-thumbs {
+	display: block;
+	width: 200px;
+
+	height: 200px;
+
+	overflow: hidden;
+
+	border-bottom: 7px solid #d3bb91;
+
+	margin-bottom: 12px;
+
+}
+
+.ind_act-thumbs img {
+
+	display: block;
+
+	width: 200px;
+
+	height: 200px;
+
+}
+
+.ind_act-head {
+	display: block;
+	font: 15px/21px "ProximaNovaBold";
+
+	color: #2F2F2F;
+
+	padding-bottom: 12px;
+
+	border-bottom: 2px solid #988454;
+
+	margin-bottom: 22px;
+
+	
+
+}
+
+.ind_act-txt {
+
+	font-size: 12px;
+
+	line-height: 18px;
+
+	color: #2F2F2F;
+
+	margin-bottom: 12px;
+
+}
+
+.ind_act-more {
+
+	display: inline-block;
+
+	float: right;
+
+	height: 35px;
+
+	padding-right: 30px;
+
+	background: url('i/bg-podr.png') right top no-repeat;
+
+	font: 14px/35px "ProximaNovaRegular";
+
+	color: #2F2F2F;
+
+	text-decoration: none;
+
+	text-transform: uppercase;
+
+}
+
+
+
+.c_page-action-list {
+
+	float: right;
+
+    width: 640px;
+
+    overflow: hidden;
+
+}
+
+.c_page-action-list .ind_act-box {
+
+	margin: 0 5px 16px;
+
+}
+
+
+
+
+
+
+
+/* Service page ------------------------------------ */
+
+.serv_page .ins {
+	overflow: visible;
+}
+.serv_link {
+	list-style: none;
+	text-align: center;
+	font-size: 0;
+	margin-bottom: 42px;
+	margin-top: -30px;
+}
+.serv_link li {
+	display: inline-block;
+	width: 440px;
+	position: relative;
+	padding-top: 30px;
+}
+.serv_link li:before {
+	position: absolute;
+	content: "";
+	top: 10px;
+	left: 10px;
+	width: 70px;
+	height: 22px;
+	background: url('i/new.png') no-repeat;
+	-moz-transform: rotate(-12deg);
+    -ms-transform: rotate(-12deg);
+    -webkit-transform: rotate(-12deg);
+    -o-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+}
+.serv_link li:first-child:after {
+	position: absolute;
+	content: "";
+	width: 3px;
+	height: 3px;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+	background: #988454;
+	top: 35px;
+	right: -1px;
+}
+.serv_link li a {
+	color: #817A67;
+	font: 15px/17px "BookAntiqua";
+	text-transform: uppercase;
+	text-decoration: none;
+	padding-bottom: 15px;
+}
+.serv_link li a:after {
+	position: absolute;
+	content: "";
+	bottom: 0;
+	left: 50%;
+	margin-left: -65px;
+	width: 130px;
+	height: 2px;
+	background: #988454;
+	display: none;
+}
+.serv_link li a:hover:after {
+	display: block;
+}
+.serv_box {
+
+	width: 305px;
+
+	float: left;
+
+	background: #CCC3AF;
+
+	margin-right: 20px;
+
+	padding: 57px 0 47px;
+	margin-bottom: 18px;
+}
+
+.serv_box.estet {
+
+	background: #dac7a6;
+
+}
+
+.serv_box.aparat {
+
+	float: right;
+
+	margin-right: 0;
+
+	background: #DAC7A6;
+
+}
+
+.serv_box-bot {
+	overflow: hidden;
+	text-align: center;
+	font-size: 0;
+}
+.serv_box2 {
+	width: 305px;
+	display: inline-block;
+	background: #e0d2bb;
+	margin: 0 10px 20px;
+	padding: 57px 0 47px;
+	vertical-align: top;
+}
+.serv_box2.omolozh {
+	display: inline-block;
+	margin-right: 0;
+	background: #e6ddcd;
+}
+
+.serv_title {
+
+	display: block;
+
+	color: #FFF;
+
+	text-decoration: none;
+
+	margin: 0 30px 25px;
+
+	font: 21px/27px "ClearSansLight";
+	text-transform: uppercase;
+
+}
+
+.serv_title:hover {
+
+	text-decoration: underline;
+
+}
+
+.serv_nav {
+
+	padding: 0 20px 0 30px;
+
+}
+
+.serv_nav ul {
+
+	list-style: none;
+
+}
+
+.serv_nav ul li {
+
+	margin-bottom: 10px;
+
+}
+
+.serv_nav ul li a {
+
+	text-decoration: none;
+
+	color: #3E3E3F;
+
+	font: 14px/17px "BookAntiqua";
+
+	letter-spacing: 1px;
+
+}
+
+.serv_nav ul li a:hover {
+
+	text-decoration: underline;
+
+}
+
+
+.serv_box-allwidth {
+	width: 100%;
+	padding: 57px 0 47px;
+	background-color: #DAC7A6;
+	margin-bottom: 20px;
+}
+.serv_box-allwidth ul {
+	display: flex;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	padding: 0;
+}
+.serv_box-allwidth ul li {
+	display: inline-block;
+	width: 33.3%;
+	text-align: center;
+}
+.serv_box-allwidth .serv_title {
+	text-align: center;
+}
+
+
+
+/* Breadcrumbs ------------------------------------ */
+
+.c_crumbs {
+
+	overflow: hidden;
+
+	color: #3f3f3f;
+
+	font: 11px/17px "BookAntiqua";
+
+	text-transform: uppercase;
+
+	letter-spacing: 1px;
+
+	text-decoration: none;
+	margin-bottom: 35px;
+
+}
+
+.c_crumbs a, .c_crumbs span {
+
+	color: #3f3f3f;
+
+	font: 11px/17px "BookAntiqua";
+
+	text-transform: uppercase;
+
+	letter-spacing: 1px;
+
+	text-decoration: none;
+
+}
+
+.c_crumbs a:hover {
+
+	text-decoration: underline;
+
+}
+
+
+
+
+
+/* List item --------------------------------------- */
+
+.c_list {
+
+	overflow: hidden;
+
+	float: right;
+
+	width: 630px;
+
+	font-size: 0;
+
+	text-align: left;
+
+}
+.page .c_list {
+	float: none;
+}
+
+.c_list-box {
+
+	display: inline-block;
+
+	width: 186px;
+
+	border: 2px solid #d3bb91;
+
+	background: #fff;
+
+	margin: 0 9px 18px;
+
+	vertical-align: top;
+
+}
+
+.c_list-thumbs {
+
+	margin: 12px;
+
+	width: 164px;
+
+	height: 150px;
+
+	overflow: hidden;
+
+}
+
+.c_list-info {
+
+	margin: 0 12px;
+
+	border-top: 1px solid #D3BB91;
+
+	border-bottom: 1px solid #D3BB91;
+
+	padding: 8px 4px 4px;
+
+	margin-bottom: 12px;
+
+}
+
+.c_list-more {
+
+	display: inline-block;
+
+	font: 11px/13px "Times New Roman", "BookAntiqua";
+
+	text-decoration: none;
+
+	color: #3F3F3F;
+
+	margin-bottom: 4px;
+
+	text-align: left;
+
+}
+
+.c_list-more:hover, .c_list-cat a:hover {
+
+	text-decoration: underline;
+
+}
+
+.c_list-cat {
+
+	text-align: left;
+
+}
+
+.c_list-cat a {
+
+	font: 8px/13px "BookAntiqua";
+
+	text-decoration: none;
+
+	color: #a3a2a2;
+
+	text-transform: uppercase;
+
+	letter-spacing: 0.7px;
+
+}
+
+.c_list-bot {
+
+	overflow: hidden;
+
+	margin: 0 12px 12px;
+
+}
+
+.c_list-cost {
+
+	float: left;
+
+	width: 78px;
+
+	height: 23px;
+
+	color: #3F3F3F;
+
+	font: bold 14px/23px "ClearSansLight";
+
+}
+
+.c_list-zak {
+
+	display: block;
+
+	float: right;
+
+	width: 84px;
+
+	height: 23px;
+
+	background: #988454;
+
+	font: 11px/23px "BookAntiqua";
+
+	color: #FFF;
+
+	border: none;
+
+	outline: none;
+
+	text-transform: uppercase;
+
+	text-decoration: none;
+
+	text-align: center;
+
+	cursor: pointer;
+
+	margin-top: 2px;
+
+}
+
+.summary {
+
+	width: 100%;
+
+	overflow: hidden;
+
+}
+
+.tabs_tovar {
+
+	list-style: none;
+
+	text-align: center;
+
+	font-size: 0;
+
+	margin: 30px 0 20px;
+
+}
+
+.tabs_tovar li {
+
+	display: inline-block;
+
+	width: 110px;
+
+	height: 12px;
+
+	border-left: 1px solid #3f3f3f;
+
+	color: #3F3F3F;
+
+	font: 12px/12px "ClearSansLight";
+
+	text-transform: uppercase;
+
+	cursor: pointer;
+
+}
+
+.tabs_tovar li.active {
+
+	font-weight: bold;
+
+	cursor: default;
+
+}
+
+.tabs_tovar li:first-child {
+
+	border-left: none;
+
+}
+
+.tabs_tovar-content {
+
+	display: none;
+
+	padding-bottom: 70px;
+
+}
+
+.tabs_tovar-content.active {
+
+	display: block;
+
+}
+
+
+
+
+
+
+
+
+
+/* Item tovar --------------------------- */
+
+.c_item-images {
+
+	float: left;
+
+	width: 264px;
+
+	height: 225px;
+
+}
+
+.c_item-right {
+
+	float: right;
+
+	width: 270px;
+
+}
+
+.c_item-info {
+
+	border-top: 1px solid #D3BB91;
+
+	border-bottom: 1px solid #D3BB91;
+
+	padding: 8px 4px 4px 4px;
+
+	margin-bottom: 33px;
+
+}
+
+.c_item-info h1 {
+
+	display: inline-block;
+
+	font: 14px/24px "Times New Roman", "BookAntiqua";
+
+	color: #3F3F3F;
+
+	margin-bottom: 4px;
+
+	text-align: left;
+
+}
+
+.c_item-more:hover, .c_item-cat a:hover {
+
+	text-decoration: underline;
+
+}
+
+.c_item-cat {
+
+	text-align: left;
+
+}
+
+.c_item-cat a {
+
+	font: 9px/13px "BookAntiqua";
+
+	text-decoration: none;
+
+	color: #a3a2a2;
+
+	text-transform: uppercase;
+
+	letter-spacing: 0.7px;
+
+}
+
+.c_item-cost-price {
+
+	height: 27px;
+
+	overflow: hidden;
+
+}
+
+.c_item-cost {
+
+	color: #3F3F3F;
+
+	font: bold 21px/27px "ClearSansLight";
+
+	margin-left: 5px;
+
+	width: 102px;
+
+	float: left;
+
+}
+
+.c_item-add {
+
+	float: right;
+
+	width: 162px;
+
+}
+
+.quantity {
+
+	float: left;
+
+	width: 62px;
+
+	position: relative;
+
+}
+
+.quantity input {
+
+	display: block;
+
+	width: 43px;
+
+	height: 23px;
+
+	border: 2px solid #d3bb91;
+
+	outline: none;
+
+	-webkit-border-radius: 15px;
+
+	border-radius: 15px;
+
+	background: #fff;
+
+	text-align: center;
+
+	color: #3E3E3F;
+
+	font: 18px/21px "ClearSansLight";
+
+}
+
+.plus, .minus {
+
+	display: inline-block;
+
+	width: 9px;
+
+	height: 6px;
+
+	background: url('i/bg-kolvo-arr.png') 0 1px no-repeat;
+
+	position: absolute;
+
+	top: 6px;
+
+	right: 0;
+
+	cursor: pointer;
+
+}
+
+.minus {
+
+	background-position: 0 -10px;
+
+	top: 18px;
+
+}
+
+
+
+.woocommerce-tabs {
+
+	width: 100%;
+
+	overflow: hidden;
+
+}
+
+
+
+.woocommerce-pagination {
+	padding: 65px 0 80px;
+}
+.woocommerce-pagination ul {
+	list-style: none;
+	text-align: center;
+	font-size: 0;
+}
+.woocommerce-pagination ul li {
+	margin: 0 6px;
+	font: 24px/24px "BookAntiqua";
+	color: #3F3F3F;
+	display: inline-block;
+}
+.woocommerce-pagination ul li a {
+	color: #988454;
+	text-decoration: none;
+}
+.woocommerce-pagination ul li a:hover {
+	text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+/* Sidebar -------------------------------------------------- */
+
+.s_nav {
+
+	padding: 0 20px 0 30px;
+
+}
+
+.c_side-nav {
+
+	background: #D3BB91;
+
+	padding: 50px 0;
+
+}
+
+.c_side-spec-head {
+
+	font: bold 14px/20px "ClearSansLight";
+
+	color: #2f2f2f;
+
+	margin: 0 0 35px 35px;
+
+	text-transform: uppercase;
+
+}
+
+.c_side-spec-info {
+
+	position: relative;
+
+	text-align: right;
+
+	margin-bottom: 22px;
+
+}
+
+.c_side-spec-icon {
+	position: absolute;
+	width: 140px;
+	height: 140px;
+	top: -20px;
+	left: 0;
+	overflow: hidden;
+}
+.c_side-spec-icon img {
+	width: 140px;
+	height: auto;
+}
+
+.c_side-spec-txt {
+	display: inline-block;
+	width: 180px;
+	margin-right: -30px;
+	color: #2F2F2F;
+	font:14px/19px "ClearSansLight";
+	letter-spacing: 0.8px;
+	text-align: left;
+}
+
+.c_side-spec-fam {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.cl {
+	clear: both;
+	float: none;
+}
+
+
+
+.s_nav ul {
+
+	list-style: none;
+
+}
+
+.s_nav ul li {
+	margin-bottom: 10px;
+}
+
+.s_nav > ul > li > a {
+	display: block;
+
+	color: #FFF;
+
+	text-decoration: none;
+
+	margin: 15px 0 25px;
+
+	font: 21px/27px "ClearSansLight";
+
+	text-transform: uppercase;
+
+}
+
+.s_nav > ul > li > .sub-menu {
+
+	display: none;
+
+}
+
+.s_nav > ul > li > .sub-menu .sub-menu {
+	margin: 5px 0 0 20px;
+}
+
+.s_nav > ul > li > .sub-menu li a {
+
+	text-decoration: none;
+
+	color: #3E3E3F;
+
+	font: 14px/17px "BookAntiqua";
+
+	letter-spacing: 1px;
+
+}
+
+.s_nav ul li a:hover, .s_nav ul li.current-menu-item > a {
+	text-decoration: underline !important;
+}
+
+
+.c_infobox {
+	overflow: hidden;
+	width: calc(100% - 64px);
+	margin: 20px 0;
+	border: 2px solid #D3BB91;
+    padding: 30px;
+    background: #fff;
+}
+
+
+
+.c_contact .c_txt-ins {
+	width: 500px;
+	float: left;
+}
+.c_contact .c_txt-form {
+	width: 300px;
+	float: right;
+}
+.c_txt-form input, .c_txt-form textarea {
+	width: 280px;
+	padding-left: 17px;
+	height: 36px;
+	border: 1px solid #ccc3af;
+	margin-top: 15px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	color: #000;
+	font: 14px "ClearSansMedium";
+}
+.c_txt-form textarea {
+	height: 160px;
+	resize: none;
+	padding-top: 7px;
+}
+.c_txt-form input[type="submit"] {
+	padding-left: 0;
+	width: 240px;
+	display: block;
+	margin: auto;
+	background: #ccc3af;
+	color: #fff;
+	text-transform: uppercase;
+	cursor: pointer;
+	margin-top: 24px;
+	text-shadow: 1px 1px 2px rgba(0,0,0,.6);
+}
+.wpcf7 input[type="checkbox"] {
+	width: auto;
+	height: auto;
+	display: inline-block;
+}
+.send_modal-form .wpcf7-checkbox .wpcf7-list-item{
+	display: block;
+	margin-left: 14%;
+	margin-right: 10%;
+}
+.send_modal-form .wpcf7-checkbox .wpcf7-list-item input[type="checkbox"]{
+	margin: 0;
+}
+
+
+
+
+/* Footer ----------------------------------------------------------------------------- */
+
+.footer {
+
+	width: 100%;
+
+	min-width: 960px;
+
+	height: 280px;
+
+	background: #333333;
+
+	border-top: 15px solid #fff;
+
+}
+
+.f_logo {
+
+	display: block;
+
+	width: 210px;
+
+	height: 32px;
+
+	margin: 22px auto 4px;
+
+	color: #D3BB91;
+
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.6);
+
+	font: 40px/32px 'Arsis';
+
+	letter-spacing: 1.2px;
+
+	text-decoration: none;
+
+	text-align: center;
+
+}
+
+.f_desc {
+
+	color: #FFF;
+
+	text-align: center;
+
+	margin-bottom: 15px;
+
+	font: 24px/16px 'Arsis';
+
+	letter-spacing: 1.2px;
+
+}
+
+.f_copy {
+
+	text-align: center;
+
+	color: #9E9D9D;
+
+	height: 20px;
+
+	font: 11px/30px "ProximaNovaRegular";
+
+}
+
+.f_made {
+
+	display: inline-block;
+
+	width: 125x;
+
+	height: 20px;
+
+	background: url('i/bg-made.png') no-repeat;
+
+	text-indent: -1989px;
+
+	margin-left: 4px;
+
+}
+
+.f_soc {
+
+	font-size: 0;
+	margin: auto 30px;
+
+}
+
+.h_top-right > .row{
+	display: flex;
+}
+
+.f_soc li {
+
+	display: inline-block;
+
+	width: 33px;
+
+	height: 34px;
+
+}
+.f_soc{
+	text-align: center;
+}
+.f_soc a {
+	display: inline-block;
+	width: 33px;
+	height: 34px;
+	background: url('i/bg-soc.jpg') no-repeat;
+}
+
+.f_soc a.fb,
+.f_soc li.fb a
+{background-position: 0 0;}
+
+.f_soc a.tw,
+.f_soc li.tw a
+{background-position: -33px 0;}
+
+.f_soc a.pi,
+.f_soc li.pi a
+{background-position: -67px 0;}
+
+.f_soc a.yt,
+.f_soc li.yt a
+{background-position: -100px 0;}
+
+.f_soc a.in,
+.f_soc li.in a
+{background-position: -133px 0;}
+
+.prime-incut{
+	margin-bottom: 10px;
+}
+
+
+
+.totop {
+
+	position: fixed;
+
+	bottom: 78px;
+
+	right: 50%;
+
+	margin-right: -570px;
+
+	display: block;
+
+	width: 32px;
+
+	height: 36px;
+
+	background: url('i/bg-totop.png') no-repeat;
+
+	z-index: 250;
+
+	text-indent: -2989px;
+
+	display: none;
+
+}
+
+
+
+.send_proc {
+
+	display: block;
+
+	position: fixed;
+
+	top: 40%;
+
+	right: -73px;
+
+	width: 260px;
+
+	height: 50px;
+
+	overflow: hidden;
+
+	background: #d3bb91;
+
+	-webkit-box-shadow: -3px -3px 4px rgba(2,2,2,0.6);
+
+	box-shadow: -3px -3px 4px rgba(2,2,2,0.6);
+
+	z-index: 190;
+
+	-webkit-transform: rotate(-90deg);
+
+	-moz-transform: rotate(-90deg);
+
+	-o-transform: rotate(-90deg);
+
+	-ms-transform: rotate(-90deg);
+
+	transform: rotate(-90deg);
+
+	color: #2f2f2f;
+
+	text-transform: uppercase;
+
+	font: 14px/50px "ProximaNovaRegular";
+
+	text-align: center;
+
+	text-decoration: none;
+
+}
+
+
+
+
+
+
+/*
+
+===================      New Year       =================================
+
+*/
+
+.b-page_newyear {position: absolute;z-index: 100;}
+.b-page__content{min-height:200px;position: relative;}
+
+.b-head-decor{
+   position:absolute;
+   top:0;
+   left:0;
+   display:none;
+   height:115px;
+   width:100%;
+   overflow:hidden;
+   background:url(i/balls/b-head-decor_newyear.png) repeat-x 0 0;
+   z-index: 2;
+}
+.b-head-decor__inner{position:absolute;top:0;left:0;height:115px;display:block;width:373px}
+.b-head-decor::before{content:'';display:block;position:absolute;top:-115px;left:0;z-index:3;height:115px;display:block;width:100%;box-shadow:0 15px 30px rgba(0,0,0,0.75)}
+.b-head-decor__inner_n2{left:373px}
+.b-head-decor__inner_n3{left:746px}
+.b-head-decor__inner_n4{left:1119px}
+.b-head-decor__inner_n5{left:1492px}
+.b-head-decor__inner_n6{left:1865px}
+.b-head-decor__inner_n7{left:2238px}
+
+.b-ball{position:absolute}
+.b-ball_n1{top:0;left:3px;width:59px;height:83px}
+.b-ball_n2{top:-19px;left:51px;width:55px;height:70px}
+.b-ball_n3{top:9px;left:88px;width:49px;height:67px}
+.b-ball_n4{top:0;left:133px;width:57px;height:102px}
+.b-ball_n5{top:0;left:166px;width:49px;height:57px}
+.b-ball_n6{top:6px;left:200px;width:54px;height:70px}
+.b-ball_n7{top:0;left:240px;width:56px;height:67px}
+.b-ball_n8{top:0;left:283px;width:54px;height:53px}
+.b-ball_n9{top:10px;left:321px;width:49px;height:66px}
+.b-ball_n1 .b-ball__i{background:url(i/balls/b-ball_n1.png) no-repeat}
+.b-ball_n2 .b-ball__i{background:url(i/balls/b-ball_n2.png) no-repeat}
+.b-ball_n3 .b-ball__i{background:url(i/balls/b-ball_n3.png) no-repeat}
+.b-ball_n4 .b-ball__i{background:url(i/balls/b-ball_n4.png) no-repeat}
+.b-ball_n5 .b-ball__i{background:url(i/balls/b-ball_n5.png) no-repeat}
+.b-ball_n6 .b-ball__i{background:url(i/balls/b-ball_n6.png) no-repeat}
+.b-ball_n7 .b-ball__i{background:url(i/balls/b-ball_n7.png) no-repeat}
+.b-ball_n8 .b-ball__i{background:url(i/balls/b-ball_n8.png) no-repeat}
+.b-ball_n9 .b-ball__i{background:url(i/balls/b-ball_n9.png) no-repeat}
+.b-ball_i1 .b-ball__i{background:url(i/balls/b-ball_i1.png) no-repeat}
+.b-ball_i2 .b-ball__i{background:url(i/balls/b-ball_i2.png) no-repeat}
+.b-ball_i3 .b-ball__i{background:url(i/balls/b-ball_i3.png) no-repeat}
+.b-ball_i4 .b-ball__i{background:url(i/balls/b-ball_i4.png) no-repeat}
+.b-ball_i5 .b-ball__i{background:url(i/balls/b-ball_i5.png) no-repeat}
+.b-ball_i6 .b-ball__i{background:url(i/balls/b-ball_i6.png) no-repeat}
+.b-ball_i1{top:0;left:0;width:25px;height:71px}
+.b-ball_i2{top:0;left:25px;width:61px;height:27px}
+.b-ball_i3{top:0;left:176px;width:29px;height:31px}
+.b-ball_i4{top:0;left:205px;width:50px;height:51px}
+.b-ball_i5{top:0;left:289px;width:78px;height:28px}
+.b-ball_i6{top:0;left:367px;width:6px;height:69px}
+.b-ball__i{
+position:absolute;
+width:100%;
+height:100%;
+-webkit-transform-origin:50% 0;
+-moz-transform-origin:50% 0;
+-o-transform-origin:50% 0;
+transform-origin:50% 0;
+-webkit-transition:all .3s ease-in-out;
+-moz-transition:all .3s ease-in-out;
+-o-transition:all .3s ease-in-out;
+transition:all .3s ease-in-out;
+pointer-events:none
+}
+.b-ball_bounce .b-ball__right{position:absolute;top:0;right:0;left:50%;bottom:0;z-index:9}
+.b-ball_bounce:hover .b-ball__right{display:none}
+.b-ball_bounce .b-ball__right:hover{left:0;display:block!important}
+.b-ball_bounce.bounce>.b-ball__i{-webkit-transform:rotate(-9deg);-moz-transform:rotate(-9deg);-o-transform:rotate(-9deg);transform:rotate(-9deg)}
+.b-ball_bounce .b-ball__right.bounce+.b-ball__i{-webkit-transform:rotate(9deg);-moz-transform:rotate(9deg);-o-transform:rotate(9deg);transform:rotate(9deg)}
+.b-ball_bounce.bounce1>.b-ball__i{-webkit-transform:rotate(6deg);-moz-transform:rotate(6deg);-o-transform:rotate(6deg);transform:rotate(6deg)}
+.b-ball_bounce .b-ball__right.bounce1+.b-ball__i{-webkit-transform:rotate(-6deg);-moz-transform:rotate(-6deg);-o-transform:rotate(-6deg);transform:rotate(-6deg)}
+.b-ball_bounce.bounce2>.b-ball__i{-webkit-transform:rotate(-3deg);-moz-transform:rotate(-3deg);-o-transform:rotate(-3deg);transform:rotate(-3deg)}
+.b-ball_bounce .b-ball__right.bounce2+.b-ball__i{-webkit-transform:rotate(3deg);-moz-transform:rotate(3deg);-o-transform:rotate(3deg);transform:rotate(3deg)}
+.b-ball_bounce.bounce3>.b-ball__i{-webkit-transform:rotate(1.5deg);-moz-transform:rotate(1.5deg);-o-transform:rotate(1.5deg);transform:rotate(1.5deg)}
+.b-ball_bounce .b-ball__right.bounce3+.b-ball__i{-webkit-transform:rotate(-1.5deg);-moz-transform:rotate(-1.5deg);-o-transform:rotate(-1.5deg);transform:rotate(-1.5deg)}
+
+
+
+
+.pop-up {
+	display: none;
+	position: fixed;
+	margin: 5% auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 302;
+	width: 400px;
+	border: 1px solid #988454;
+}
+.pop-up-box {
+	background-color: whitesmoke;
+	text-align: center;
+	position: relative;
+	-webkit-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+}
+.pop-up-box h3 {
+	background: #D3BB91;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 10px 0;
+	font: 20px/24px "ProximaNovaRegular";
+}
+.close-btn {
+	display: block;
+	width: 240px;
+	height: 36px;
+	margin: 0 auto;
+	color: #FFF;
+	background-color: #D3BB91;
+	font: 16px/36px "ProximaNovaRegular";
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.close-btn:hover {
+	background-color: #988454;
+	-webkit-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+}
+.close-x {
+    transition: all 0.5s ease;
+    position: absolute;
+    background-color: #fff;
+    padding: 2px 4px 0;
+    left: -14px;
+    top: -14px;
+    border-radius: 100%;
+    border: 2px solid #38332c;
+    -webkit-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
+    box-shadow: -3px 1px 6px 0px rgba(0,0,0,0.1);
+}
+.close-x:hover {
+	background: #988454;
+}
+
+
+.submenui {
+    color: #3E3E3F;
+    font: 14px/17px "BookAntiqua";
+    letter-spacing: 1px;
+    padding: 10px;
+}
+
+
+.btnew {
+    display: block;
+    width: 274px;
+    height: 43px;
+    background: transparent;
+    border: 1px solid #fff;
+    text-align: center;
+    text-decoration: none;
+    color: #dbcfbb;
+    background: #dbcfbb;
+    font: 14px/43px "BookAntiqua";
+    text-transform: uppercase;
+    margin: auto;
+}
+
+
+.btn1 {
+display: block;
+    width: 250px;
+    height: 43px;
+    background: transparent;
+    border: 1px solid #fff;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background: #d3bb91;
+    font: 14px/43px "BookAntiqua";
+    text-transform: uppercase;
+}
+
+.news-pagination{
+	text-align:center;
+}
+
+.news-pagination > a{
+	    font-weight: 100;
+    font-family: "ProximaNovaRegular";
+    font-size: 16px;
+    text-decoration: none;
+    color: #000000;
+    background: #d3bb91;
+    padding: 6px 0px;
+    border-radius: 80px;
+    display: inline-block;
+    margin: 15px 0px;
+    width: 31px;
+}
+.news-pagination > a:hover{
+	color:#fff;
+}
+.news-pagination > a.active{
+	color:#fff;
+}
+
+
+
+/* ОТЗЫВЫ НАШИХ КЛИЕНТОВ */
+
+
+#wpmtst-submission-form{
+	text-align:center;
+}
+
+#wpmtst-submission-form input,#wpmtst-submission-form textarea{
+	border: 1px solid #e0e1e5;
+    border-radius: 5px;
+	width: 310px;
+	margin: 5px auto;
+	padding: 10px;
+}
+
+#wpmtst-submission-form #wpmtst_submit_testimonial{
+	background:#D3BB91;
+	color:#FFF;
+}
+
+.testimonial-success{
+	text-align: center;
+    color: green;
+    font-size: 18px;
+}
+#wpmtst-submission-form .error{
+	display:block;
+}
+
+.simplePagerContainer .testimonial-heading{
+	font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.social-wigets{
+	padding: 10px;
+    height: 350px;
+    max-width: 790px;
+    margin: 0 auto;
+}
+
+.social-wigets > h1{
+	margin-bottom:30px;
+}
+
+.social-wigets > div{
+	float:left;
+	margin-left:10px;
+	width: 250px;
+}
+
+.social-wigets:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.g-recaptcha{
+	text-align: -webkit-center;
+}
+

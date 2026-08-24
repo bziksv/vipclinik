@@ -1,0 +1,66 @@
+# Деплой на Beget по FTP при push в main.
+# SSH не нужен: GitHub Actions заливает файлы сам.
+#
+# Секреты: Settings → Secrets and variables → Actions
+#   BEGET_FTP_HOST, BEGET_FTP_USER, BEGET_FTP_PASSWORD, BEGET_FTP_REMOTE_DIR, DEPLOY_TOKEN
+
+name: Deploy to Beget
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'DEPLOY_TOKEN для ручного деплоя (если задан в Secrets)'
+        required: false
+        type: string
+
+concurrency:
+  group: deploy-beget
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify deploy token
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          if [ -z "$DEPLOY_TOKEN" ]; then
+            echo "DEPLOY_TOKEN не задан в Secrets — пропускаем проверку"
+            exit 0
+          fi
+          if [ "${{ github.event.inputs.confirm }}" != "$DEPLOY_TOKEN" ]; then
+            echo "Неверный DEPLOY_TOKEN для ручного деплоя"
+            exit 1
+          fi
+
+      - name: Deploy theme and patches via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.BEGET_FTP_HOST }}
+          username: ${{ secrets.BEGET_FTP_USER }}
+          password: ${{ secrets.BEGET_FTP_PASSWORD }}
+          port: ${{ secrets.BEGET_FTP_PORT || 21 }}
+          protocol: ftps
+          local-dir: ./vipclinik.com/
+          server-dir: ${{ secrets.BEGET_FTP_REMOTE_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/wp-config.php
+            **/wp-config-local.php
+            **/wp-content/cache/**
+            **/wp-content/uploads/**
+            **/debug.log
+          log-level: minimal
