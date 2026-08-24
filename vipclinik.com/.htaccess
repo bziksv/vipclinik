@@ -1,13 +1,14 @@
 
-# Legal documents: 301 from old URLs
+# Legal documents: 301 from old URLs (работает, если файла нет в uploads/)
+Redirect 301 /wp-content/uploads/2026/02/cookies-vipclinic.pdf /wp-content/documents/cookies.pdf
+Redirect 301 /wp-content/uploads/2026/03/consent-personal-data-vipclinic.pdf /wp-content/documents/consent.pdf
+Redirect 301 /wp-content/uploads/2026/03/personal-data-vipclinic.pdf /wp-content/documents/personal-data.pdf
+Redirect 301 /wp-content/uploads/2026/03/rules-recommendation-vipclinic.pdf /wp-content/documents/rules-recommendation.pdf
+
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 
-RewriteRule ^wp-content/uploads/2026/02/cookies-vipclinic\.pdf$ /wp-content/documents/cookies.pdf [R=301,L,NC]
-RewriteRule ^wp-content/uploads/2026/03/consent-personal-data-vipclinic\.pdf$ /wp-content/documents/consent.pdf [R=301,L,NC]
-RewriteRule ^wp-content/uploads/2026/03/personal-data-vipclinic\.pdf$ /wp-content/documents/personal-data.pdf [R=301,L,NC]
-RewriteRule ^wp-content/uploads/2026/03/rules-recommendation-vipclinic\.pdf$ /wp-content/documents/rules-recommendation.pdf [R=301,L,NC]
 RewriteRule ^wp-content/documents/cookies-vipclinic\.pdf/?$ /wp-content/documents/cookies.pdf [R=301,L,NC]
 RewriteRule ^wp-content/documents/consent-personal-data-vipclinic\.pdf/?$ /wp-content/documents/consent.pdf [R=301,L,NC]
 RewriteRule ^wp-content/documents/personal-data-vipclinic\.pdf/?$ /wp-content/documents/personal-data.pdf [R=301,L,NC]

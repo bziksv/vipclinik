@@ -50,6 +50,20 @@ if [ -f "$SRC/.htaccess" ]; then
   cp "$SRC/.htaccess" "$BEGET_WEB/.htaccess"
 fi
 
+# Старые PDF в uploads — удалить, иначе nginx отдаёт файл (200) вместо 301 из .htaccess
+OLD_PDFS=(
+  "wp-content/uploads/2026/02/cookies-vipclinic.pdf"
+  "wp-content/uploads/2026/03/consent-personal-data-vipclinic.pdf"
+  "wp-content/uploads/2026/03/personal-data-vipclinic.pdf"
+  "wp-content/uploads/2026/03/rules-recommendation-vipclinic.pdf"
+)
+for rel in "${OLD_PDFS[@]}"; do
+  if [ -f "$BEGET_WEB/$rel" ]; then
+    echo "→ удалён старый $rel (редирект на documents/)"
+    rm -f "$BEGET_WEB/$rel"
+  fi
+done
+
 if [ -f "$REPO_ROOT/scripts/db-sync.php" ] && [ -f "$BEGET_WEB/wp-load.php" ]; then
   echo "→ database sync"
   PHP_BIN="${PHP_BIN:-php}"
