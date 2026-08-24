@@ -1,109 +1,103 @@
-# Деплой на Beget через Git
+# Деплой vipclinik.com на Beget
 
 Репозиторий: [github.com/bziksv/vipclinik](https://github.com/bziksv/vipclinik)
 
-Обновления на прод заливаются **автоматически** при `git push` в ветку `main`. SSH и FTP-клиент вам не нужны — всё делает GitHub Actions.
+## Обычная схема (как billiard.guru)
 
-## Как это работает
-
-```
-Локально: правки → git commit → git push origin main
-                              ↓
-GitHub Actions: checkout → FTP (FTPS) → Beget public_html
-```
-
-В git попадает только то, что реально меняется:
-- тема `wp-content/themes/clinic/`
-- патч плагина `types` (совместимость с PHP 7.4+)
-
-Ядро WordPress, uploads, кеш и `wp-config.php` на сервере **не трогаются**.
-
----
-
-## Одноразовая настройка
-
-### 1. FTP-аккаунт на Beget
-
-1. [Панель Beget](https://cp.beget.com/) → **FTP** → **Добавить FTP-аккаунт**
-2. Домашняя директория: `vipclinik.com/public_html` (или корень сайта)
-3. Запишите: **хост**, **логин**, **пароль**
-
-> Хост обычно вида `vipclinik.beget.tech` или имя из раздела FTP в панели.
-
-### 2. Секреты в GitHub
-
-Репозиторий → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
-
-| Secret | Пример | Описание |
-|--------|--------|----------|
-| `BEGET_FTP_HOST` | `vipclinik.beget.tech` | FTP-хост |
-| `BEGET_FTP_USER` | `vipclinik_deploy` | Логин FTP |
-| `BEGET_FTP_PASSWORD` | `***` | Пароль FTP |
-| `BEGET_FTP_REMOTE_DIR` | `/` | Путь от корня FTP-аккаунта до `public_html` |
-| `BEGET_FTP_PORT` | `21` | Необязательно |
-| `DEPLOY_TOKEN` | `my-secret-deploy-2026` | Ключ для ручного деплоя (см. ниже) |
-
-**`BEGET_FTP_REMOTE_DIR`:** если FTP-аккаунт создан с домашней папкой `public_html`, укажите `/`. Если корень аккаунта выше — укажите `/vipclinik.com/public_html/`.
-
-### 3. Deploy token (ключ без SSH)
-
-`DEPLOY_TOKEN` — произвольная строка, которую знаете только вы. Используется при **ручном** запуске деплоя из GitHub:
-
-1. **Actions** → **Deploy to Beget** → **Run workflow**
-2. В поле `confirm` введите значение `DEPLOY_TOKEN`
-
-При обычном `git push` в `main` токен **не нужен** — деплой идёт автоматически.
-
-### 4. Environment (рекомендуется)
-
-**Settings** → **Environments** → **production** → включите **Required reviewers**, если нужно подтверждение перед выкладкой.
-
----
-
-## Ежедневный workflow
-
+**Локально:**
 ```bash
-# правки в теме clinic или других отслеживаемых файлах
-git add .
-git commit -m "fix: правка шапки сайта"
+cd /Users/stanislav/Documents/projects/vipclinik
+git add ...
+git commit -m "описание"
 git push origin main
 ```
 
-Через 1–3 минуты проверьте:
-- **Actions** → последний workflow (зелёная галочка)
-- https://vipclinik.com
+**На Beget по SSH:**
+```bash
+cd ~/vipclinik
+git pull origin main
+./scripts/beget-deploy.sh
+```
+
+Или одной командой (pull уже внутри):
+```bash
+cd ~/vipclinik && ./scripts/beget-deploy.sh
+```
+
+Проверка: https://vipclinik.com/wp-content/documents/consent.pdf
 
 ---
 
-## Ручной деплой
+## Одноразовая настройка на Beget
 
-GitHub → **Actions** → **Deploy to Beget** → **Run workflow** → в `confirm` введите `DEPLOY_TOKEN`.
+### 1. SSH
+
+Панель Beget → **SSH** → включить.
+
+### 2. Клон репозитория
+
+```bash
+ssh USER@vipclinik.beget.tech
+
+cd ~
+git clone git@github.com:bziksv/vipclinik.git vipclinik
+cd vipclinik
+chmod +x scripts/*.sh
+```
+
+Если `git clone` по SSH не работает — добавь SSH-ключ Beget в GitHub (Settings → SSH keys) или клонируй по HTTPS.
+
+### 3. Путь к сайту
+
+По умолчанию скрипт кладёт файлы в `~/vipclinik.com/public_html`.
+
+Если у тебя другой путь:
+```bash
+export BEGET_WEB=/home/USER/vipclinik.com/public_html
+./scripts/beget-setup.sh
+```
+
+### 4. Первый деплой
+
+```bash
+cd ~/vipclinik
+./scripts/beget-deploy.sh
+```
 
 ---
 
-## Что не деплоится
+## Что выкладывается
 
-| Файл / папка | Причина |
-|--------------|---------|
-| `wp-config.php` | секреты, уже на сервере |
-| `wp-config-local.php` | только для localhost |
-| `wp-content/uploads/` | медиафайлы (~1.5 GB) |
-| `wp-content/cache/` | генерируется на сервере |
-| Ядро WP, плагины | уже на Beget |
+| Из git | → на сервер |
+|--------|-------------|
+| `wp-content/themes/clinic/` | тема |
+| `wp-content/documents/` | PDF политики |
+| `wp-content/plugins/types/.../adodb-time.inc.php` | патч PHP 7.4 |
+| `.htaccess` | редиректы PDF |
 
----
-
-## Если деплой упал
-
-1. **Actions** → failed job → лог шага FTP
-2. Проверьте FTP-логин/пароль в Secrets
-3. Проверьте `BEGET_FTP_REMOTE_DIR` — частая ошибка: неверный путь
-4. Убедитесь, что FTPS включён для аккаунта (Beget поддерживает)
+**Не трогаем:** uploads, wp-config.php, ядро WP, плагины (кроме патча).
 
 ---
 
-## Альтернатива: rsync по SSH (быстрее)
+## Локальная разработка
 
-Если позже включите SSH в панели Beget один раз и добавите ключ — можно переключиться на rsync. Подробнее: [dev-postnov.ru — GitHub Actions + Beget](https://dev-postnov.ru/setup-github-actions/).
+```bash
+cd /Users/stanislav/Documents/projects/vipclinik
+./start-local.sh
+```
 
-Текущая схема через FTP выбрана специально, чтобы **не заходить на сервер по SSH**.
+→ http://localhost:8888
+
+---
+
+## Альтернатива: GitHub Actions + FTP
+
+Если не хочешь SSH — настроены секреты `BEGET_FTP_*`, деплой при `git push` или **Actions → Deploy to Beget → Run workflow**.
+
+FTP менее надёжен; **рекомендуется SSH + git pull**.
+
+---
+
+## Cookie-баннер (БД)
+
+Текст GDPR-плагина в базе — после деплоя проверь ссылки на `/wp-content/documents/...` в админке WP или обнови вручную.

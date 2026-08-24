@@ -1,6 +1,10 @@
 # macOS
 .DS_Store
 
+# Исходники клиента (не на сайт)
+документы (1)/
+документы (1).zip
+
 # Локальная разработка
 vipclinik.com/wp-config-local.php
 vipclinik_s.sql.gz
@@ -21,6 +25,7 @@ vipclinik.com/wp-content/backups/
 
 # Ядро WP и плагины — уже на Beget, в git только то, что меняем
 vipclinik.com/*
+!vipclinik.com/.htaccess
 !vipclinik.com/wp-config.example.php
 !vipclinik.com/wp-content/
 vipclinik.com/wp-content/*
