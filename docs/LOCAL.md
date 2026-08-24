@@ -42,7 +42,7 @@ gunzip -c vipclinik_s.sql.gz | mysql -u root vipclinik_s
 ## Известные ограничения локально
 
 - Картинки в контенте могут ссылаться на `https://vipclinik.com` — медиа лежат в `uploads/`, в git не включены
-- SSL-редирект отключён через константы в `wp-config-local.php`
+- SSL-редирект отключён через `mu-plugins/local-dev.php`
 - WP-Cron отключён (`DISABLE_WP_CRON`)
 
 ## Переимпорт базы
