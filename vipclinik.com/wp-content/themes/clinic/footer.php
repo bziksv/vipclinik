@@ -40,7 +40,7 @@
 <!--<div class="f_copy"><a href="/wp-content/uploads/2017/11/politics.pdf" target="_blank" style="font-size: 10px; color: #9E9D9D; text-decoration: none;">Политика конфиденциальности</a> | <a href="/wp-content/uploads/2017/11/compliance.pdf" target="_blank" style="font-size: 10px; color: #9E9D9D; text-decoration: none;">Согласие на обработку персональных данных</a></div>-->
 			<br>
 			<div style="color: #9E9D9D; font-size: 11px; line-height: 1.3;">
-				Наш сайт использует <a style="color: #fff;" target="_blank" href="/wp-content/uploads/2026/02/cookies-vipclinic.pdf">cookies</a> для обеспечения работоспособности и сбора статистики. С их помощью мы анализируем пользовательскую активность, улучшаем работу сайта и делаем рекламу более релевантной. Оставаясь на сайте, вы даете согласие на обработку ваших персональных данных. Вы можете отключить сохранение cookies в настройках браузера в любой момент. На сайте также применяются <a style="color: #fff;" target="_blank" href="/wp-content/uploads/2026/03/rules-recommendation-vipclinic.pdf">рекомендательные технологии</a>. Подробнее об обработке персональных данных — в соответствующей <a style="color: #fff;" target="_blank" href="/wp-content/uploads/2026/03/personal-data-vipclinic.pdf">Политике</a>.
+				Наш сайт использует <a style="color: #fff;" target="_blank" href="<?php echo esc_url( clinic_legal_doc_url( 'cookies' ) ); ?>">cookies</a> для обеспечения работоспособности и сбора статистики. С их помощью мы анализируем пользовательскую активность, улучшаем работу сайта и делаем рекламу более релевантной. Оставаясь на сайте, вы даете <a style="color: #fff;" target="_blank" href="<?php echo esc_url( clinic_legal_doc_url( 'consent' ) ); ?>">согласие на обработку ваших персональных данных</a>. Вы можете отключить сохранение cookies в настройках браузера в любой момент. На сайте также применяются <a style="color: #fff;" target="_blank" href="<?php echo esc_url( clinic_legal_doc_url( 'rules-recommendation' ) ); ?>">рекомендательные технологии</a>. Подробнее об обработке персональных данных — в соответствующей <a style="color: #fff;" target="_blank" href="<?php echo esc_url( clinic_legal_doc_url( 'personal-data' ) ); ?>">Политике</a>.
 			</div>
 			
 		<div style="width: 17%; margin: 0 auto; margin-top: 10px;"><a href="https://prime-ltd.su/?from=https://vipclinik.com/" target="_blank" rel="nofollow"><img src="http://prime-ltd.su/logo/white.svg"></a></div>	
@@ -129,7 +129,7 @@ if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(
 <? do_shortcode('[show_popup]'); ?>
 <? do_shortcode('[show_popup_8]'); ?>
 
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-migrate-1.2.1.min.js?ver=1.2.1"></script>
 <script src="//yandex.st/jquery/cookie/1.0/jquery.cookie.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery.easing-1.3.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery.mousewheel-3.1.12.js"></script>
@@ -140,7 +140,13 @@ if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(
 
 <link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/wickedpicker/wickedpicker.min.css"/>
 <script src="<?php bloginfo('template_directory'); ?>/wickedpicker/wickedpicker.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/main.js"></script>
+<script>
+window.clinicLegalDocs = <?php echo wp_json_encode( array(
+	'consent' => clinic_legal_doc_url( 'consent' ),
+	'policy'  => clinic_legal_doc_url( 'personal-data' ),
+) ); ?>;
+</script>
+<script src="<?php bloginfo('template_directory'); ?>/js/main.js?ver=<?php echo filemtime(get_template_directory() . '/js/main.js'); ?>"></script>
 
 
 
@@ -149,6 +155,10 @@ if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(
 
 
 <?php wp_footer(); ?>
+<script>
+document.addEventListener('wpcf7DOMContentLoaded', updateCf7ConsentLabels);
+document.addEventListener('wpcf7mailsent', updateCf7ConsentLabels);
+</script>
 
 
 

@@ -7,7 +7,7 @@
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title><?php wp_title('&mdash;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 	
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="<?php bloginfo('template_directory'); ?>/js/jquery-1.11.1.min.js?ver=1.11.1"></script>
 	
 	<?php wp_head(); ?>
 	<link href="<?php bloginfo('stylesheet_url'); ?>" rel="stylesheet">
@@ -89,8 +89,11 @@
 			</div>
 
 		</div>
-		<div class="ins h_mid"></div>
+		<div class="ins h_mid">
+			<img class="h_mid-bg" src="<?= get_template_directory_uri(); ?>/i/bg-head-mid.jpg" alt="" aria-hidden="true" width="1120" height="660">
+		</div>
 		<div class="ins h_bot">
+		<img class="h_bot-bg" src="<?= get_template_directory_uri(); ?>/i/bg-hbot.jpg" alt="" aria-hidden="true" width="479" height="469">
 		<?php $recent = new WP_Query("page_id=58"); while($recent->have_posts()) : $recent->the_post();?>
 			<div class="h_bot-title"><?php the_title(); ?></div>
 			<div class="h_bot-txt"><?php the_content(); ?></div>
@@ -136,7 +139,9 @@ if( $imgban ) {
 
 		</div>
 
-		<div class="ins h_mid h_mid-page"></div>
+		<div class="ins h_mid h_mid-page">
+			<img class="h_mid-bg" src="<?= get_template_directory_uri(); ?>/i/bg-head-mid-page.jpg" alt="" aria-hidden="true" width="1120" height="380">
+		</div>
 	</header><!-- .header-->
 <?php } ?>
 

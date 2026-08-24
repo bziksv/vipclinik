@@ -290,6 +290,17 @@ function wds_get_ID_by_page_name($page_name) {
   return $page_name_id;
 }
 
+function clinic_legal_doc_url( $name ) {
+  $files = array(
+    'cookies'             => 'cookies.pdf',
+    'consent'             => 'consent.pdf',
+    'personal-data'       => 'personal-data.pdf',
+    'rules-recommendation'=> 'rules-recommendation.pdf',
+  );
+  $filename = isset( $files[ $name ] ) ? $files[ $name ] : ltrim( $name, '/' );
+  return '/wp-content/documents/' . $filename;
+}
+
 
 
 

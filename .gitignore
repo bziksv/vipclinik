@@ -24,6 +24,8 @@ vipclinik.com/*
 !vipclinik.com/wp-config.example.php
 !vipclinik.com/wp-content/
 vipclinik.com/wp-content/*
+!vipclinik.com/wp-content/documents/
+!vipclinik.com/wp-content/documents/**
 !vipclinik.com/wp-content/themes/
 vipclinik.com/wp-content/themes/*
 !vipclinik.com/wp-content/themes/clinic/

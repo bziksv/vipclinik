@@ -150,6 +150,8 @@ body {
 
 	width: 100%;
 
+	background: #f1f1f1;
+
 }
 
 .wrapper {
@@ -508,6 +510,13 @@ p {
     margin-right: 0;
 }
 
+.c_txt-form .wpcf7-checkbox .wpcf7-list-item{
+	display: block;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.c_txt-form .wpcf7-checkbox .wpcf7-list-item input[type="checkbox"],
 .send_page-form .wpcf7-checkbox .wpcf7-list-item input[type="checkbox"] {
     margin: 0;
 }
@@ -669,11 +678,9 @@ p {
 
 }
 
-.h_mid:after {
+.h_mid-bg {
 
 	position: absolute;
-
-	content: "";
 
 	bottom: 0;
 
@@ -685,9 +692,21 @@ p {
 
 	height: 660px;
 
-	background: url('i/bg-head-mid.jpg') no-repeat;
+	object-fit: cover;
+
+	object-position: center bottom;
 
 	z-index: 10;
+
+	pointer-events: none;
+
+	display: block;
+
+}
+
+.h_mid:after {
+
+	display: none;
 
 }
 
@@ -697,11 +716,17 @@ p {
 
 }
 
-.h_mid-page:after {
+.h_mid-page .h_mid-bg {
 
 	height: 380px;
 
-	background: url('i/bg-head-mid-page.jpg') top center no-repeat;
+	object-position: center top;
+
+}
+
+.h_mid-page:after {
+
+	display: none;
 
 }
 
@@ -781,9 +806,13 @@ p {
 
 .h_bot:after {
 
-	position: absolute;
+	display: none;
 
-	content: "";
+}
+
+.h_bot-bg {
+
+	position: absolute;
 
 	top: 50px;
 
@@ -793,7 +822,13 @@ p {
 
 	height: 469px;
 
-	background: url('i/bg-hbot.jpg') no-repeat;
+	object-fit: contain;
+
+	z-index: 5;
+
+	pointer-events: none;
+
+	display: block;
 
 }
 
@@ -2822,12 +2857,6 @@ margin-top: -60px;
 .f_soc a.in,
 .f_soc li.in a
 {background-position: -133px 0;}
-
-.prime-incut{
-	margin-bottom: 10px;
-}
-
-
 
 .totop {
 

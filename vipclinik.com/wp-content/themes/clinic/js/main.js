@@ -23,6 +23,7 @@ $(function() {
 
 	$('.send_proc').click(function(event) {
 		$('.send_modal, .bg').addClass('active');
+		updateCf7ConsentLabels();
 		event.preventDefault();
 	});
 
@@ -169,11 +170,18 @@ var hwSlideSpeed = 800;
 var hwTimeOut = 9000;
 var hwNeedLinks = true;
 
+function updateCf7ConsentLabels() {
+	var docs = window.clinicLegalDocs || {};
+	var consentUrl = docs.consent || '/wp-content/documents/consent.pdf';
+	var policyUrl = docs.policy || '/wp-content/documents/personal-data.pdf';
+	var consentLabel = 'Нажимая на кнопку, вы даете <a href="' + consentUrl + '" target="_blank">согласие на обработку ваших персональных данных</a> и подтверждаете, что ознакомлены с <a target="_blank" href="' + policyUrl + '">политикой обработки персональных данных</a>.';
+	jQuery('.wpcf7-checkbox input[type="checkbox"]').prop('checked', false).removeAttr('checked');
+	jQuery('.wpcf7-checkbox .wpcf7-list-item-label').html(consentLabel);
+}
+
 jQuery(document).ready(function($) {
 
-	$('.wpcf7-checkbox input').val('yes');
-	//$('.wpcf7-checkbox input').attr('checked', 'checked');//
-	$('.wpcf7-checkbox .wpcf7-list-item-label').html('Нажимая на кнопку, вы даете согласие на <a href="/wp-content/uploads/2026/03/personal-data-vipclinic.pdf" target="_blank">обработку ваших персональных данных</a> и подтверждаете, что ознакомлены с <a target="_blank" href="/wp-content/uploads/2026/03/rules-recommendation-vipclinic.pdf">правилами применения рекомендательных технологий</a> и файлов <a target="_blank" href="/wp-content/uploads/2026/02/cookies-vipclinic.pdf">cookies</a>.');
+	updateCf7ConsentLabels();
 	//$('#billing_new_fild11').attr('checked', 'checked');//
 
 	var cont_top;
