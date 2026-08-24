@@ -15,4 +15,4 @@ fi
 
 echo "Starting vipclinik at http://localhost:${PORT} (PHP: $("$PHP_BIN" -v | head -1))"
 cd "$ROOT"
-"$PHP_BIN" $PHP_FLAGS -S "localhost:${PORT}" router.php
+"$PHP_BIN" $PHP_FLAGS -S "localhost:${PORT}" -t vipclinik.com router.php
