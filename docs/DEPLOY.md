@@ -74,8 +74,14 @@ cd ~/vipclinik
 | `wp-content/documents/` | PDF политики |
 | `wp-content/plugins/types/.../adodb-time.inc.php` | патч PHP 7.4 |
 | `.htaccess` | редиректы PDF |
+| `scripts/db/gdpr-infobar.html` + `scripts/db-sync.php` | cookie-баннер и URL в БД |
 
 **Не трогаем:** uploads, wp-config.php, ядро WP, плагины (кроме патча).
+
+При деплое **`db-sync.php`** автоматически:
+- обновляет текст cookie-баннера (Moove GDPR);
+- меняет старые ссылки на PDF в `wp_options`, формах CF7 и страницах.
+- текст чекбоксов форм на сайте задаёт тема (`main.js`) — тоже через git.
 
 ---
 

@@ -50,6 +50,12 @@ if [ -f "$SRC/.htaccess" ]; then
   cp "$SRC/.htaccess" "$BEGET_WEB/.htaccess"
 fi
 
+if [ -f "$REPO_ROOT/scripts/db-sync.php" ] && [ -f "$BEGET_WEB/wp-load.php" ]; then
+  echo "→ database sync"
+  PHP_BIN="${PHP_BIN:-php}"
+  BEGET_WEB="$BEGET_WEB" "$PHP_BIN" "$REPO_ROOT/scripts/db-sync.php"
+fi
+
 echo ""
 echo "✓ Готово: https://vipclinik.com"
 echo "  PDF: https://vipclinik.com/wp-content/documents/consent.pdf"
