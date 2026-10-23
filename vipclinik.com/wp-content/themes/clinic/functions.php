@@ -34,21 +34,29 @@ add_theme_support( 'post-thumbnails' );
 
 // Обрезание картинки
 function get_img_theme($url, $width, $height){
-    $img_name=explode('/', $url);
-    $file_url= '/wp-content/uploads/'.$img_name[count($img_name)-3].'/'.$img_name[count($img_name)-2].'/';
-    $file_name=explode('.', $img_name[count($img_name)-1]);
-    $file_name=$file_name[0].'-'.$width.'x'.$height.'.'.$file_name[1];
-    if(file_exists($file_url.$file_name))
-        return $file_url.$file_name;
-    else{
-        $image = wp_get_image_editor(ABSPATH.$file_url.$img_name[count($img_name)-1]);
-        if ( ! is_wp_error($image)){
-            $image->resize($width, $height, true );
-            $image->save(ABSPATH.$file_url.$file_name);
-            $blogurl = get_bloginfo('url');
-            return $blogurl.$file_url.$file_name;
-        }
+    if ( empty( $url ) || ! is_string( $url ) ) {
+        return '';
     }
+    $img_name = explode( '/', $url );
+    if ( count( $img_name ) < 3 ) {
+        return $url;
+    }
+    $file_url = '/wp-content/uploads/' . $img_name[ count( $img_name ) - 3 ] . '/' . $img_name[ count( $img_name ) - 2 ] . '/';
+    $file_name_parts = explode( '.', $img_name[ count( $img_name ) - 1 ] );
+    if ( count( $file_name_parts ) < 2 ) {
+        return $url;
+    }
+    $file_name = $file_name_parts[0] . '-' . $width . 'x' . $height . '.' . $file_name_parts[1];
+    if ( file_exists( ABSPATH . $file_url . $file_name ) ) {
+        return $file_url . $file_name;
+    }
+    $image = wp_get_image_editor( ABSPATH . $file_url . $img_name[ count( $img_name ) - 1 ] );
+    if ( ! is_wp_error( $image ) ) {
+        $image->resize( $width, $height, true );
+        $image->save( ABSPATH . $file_url . $file_name );
+        return get_bloginfo( 'url' ) . $file_url . $file_name;
+    }
+    return $url;
 }
 
 

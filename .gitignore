@@ -50,3 +50,7 @@ vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/*
 !vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/lib/
 vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/lib/*
 !vipclinik.com/wp-content/plugins/types/embedded/common/toolset-forms/lib/adodb-time.inc.php
+
+# Local upgrade backups
+.local-backup/
+vipclinik.com/wp-content/documents/*.bak*

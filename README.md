@@ -7,11 +7,11 @@
 
 | Компонент | Версия / детали |
 |-----------|-----------------|
-| CMS | WordPress 5.0.27 |
-| PHP (prod) | 7.x–8.x на Beget |
-| PHP (local) | 7.4 (`php@7.4`) |
+| CMS | WordPress 7.1.3 (локально после апгрейда; прод ещё может быть старым) |
+| PHP (prod) | сейчас 5.6 на Beget (нужно менять отдельно) |
+| PHP (local) | 8.5 (`php@8.5`, `./start-local.sh`) |
 | БД | MySQL, `vipclinik_s` |
-| Тема | `wp-content/themes/clinic` (кастомная, WooCommerce) |
+| Тема | `wp-content/themes/clinic` |
 | Кеш | WP Super Cache |
 | SSL | Really Simple SSL |
 
@@ -19,23 +19,25 @@
 
 ```
 vipclinik/
-├── README.md                 ← вы здесь
+├── README.md
 ├── docs/
 │   ├── LOCAL.md              ← локальный запуск
-│   └── DEPLOY.md               ← деплой на Beget через Git
-├── .github/workflows/
-│   └── deploy-beget.yml        ← GitHub Actions → FTP
-├── start-local.sh              ← запуск localhost:8888
+│   └── DEPLOY.md             ← деплой на Beget (основное)
+├── scripts/
+│   ├── beget-deploy.sh       ← git pull + выкладка + БД
+│   ├── beget-setup.sh
+│   ├── db-sync.php           ← cookie-баннер и URL в БД
+│   └── db/gdpr-infobar.html
+├── start-local.sh
 ├── router.php
-├── vipclinik_s.sql.gz          ← дамп БД (не в git, только локально)
-└── vipclinik.com/              ← корень WordPress на сервере
-    ├── wp-config.example.php
-    ├── wp-config-local.php     ← только локально (gitignore)
+└── vipclinik.com/
+    ├── .htaccess
     └── wp-content/
-        └── themes/clinic/      ← основной код в git
+        ├── documents/        ← PDF политики (в git)
+        └── themes/clinic/    ← тема (в git)
 ```
 
-> Полный сайт (~6 GB с uploads) **не хранится в Git**. В репозитории — тема и патчи; ядро WP и медиа остаются на Beget.
+> Полный сайт с uploads **не в git**. На Beget: git-репо в `~/vipclinik`, сайт в `~/vipclinik.com/public_html`.
 
 ## Быстрый старт
 
@@ -47,43 +49,34 @@ gunzip -c vipclinik_s.sql.gz | mysql -u root vipclinik_s
 # → http://localhost:8888
 ```
 
-Подробнее: [docs/LOCAL.md](docs/LOCAL.md)
+→ [docs/LOCAL.md](docs/LOCAL.md)
 
 ### Деплой на прод
 
+**Mac:**
 ```bash
-git push origin main   # GitHub Actions зальёт изменения на Beget по FTP
+cd /Users/stanislav/Documents/projects/vipclinik
+git add scripts/ vipclinik.com/wp-content/documents/ vipclinik.com/wp-content/themes/clinic/ vipclinik.com/.htaccess
+git commit -m "описание"
+git push origin main
 ```
 
-Одноразовая настройка FTP-секретов: [docs/DEPLOY.md](docs/DEPLOY.md)
-
-## Git workflow
-
+**Beget SSH:**
 ```bash
-git checkout -b feature/my-change
-# правки в vipclinik.com/wp-content/themes/clinic/
-git commit -am "feat: ..."
-git push origin feature/my-change
-# → Pull Request → merge в main → автодеплой
+cd ~/vipclinik && ./scripts/beget-deploy.sh
 ```
 
-## Секреты и безопасность
+→ [docs/DEPLOY.md](docs/DEPLOY.md) — полная инструкция
 
-**Не коммитить:**
-- `wp-config.php` (пароли БД)
-- `wp-config-local.php`
+## Что не коммитить
+
+- `wp-config.php`, `wp-config-local.php`
 - `vipclinik_s.sql.gz`
-
-FTP-пароль и deploy-токен — только в **GitHub Secrets** ([docs/DEPLOY.md](docs/DEPLOY.md)).
+- `документы (1)/`, `документы (1).zip` — исходники клиента
+- `wp-content/uploads/`
 
 ## Плагины (основные)
 
-- WooCommerce + Saphali Lite
-- Contact Form 7, Yoast SEO, WP Super Cache
-- Types (Toolset), NextGEN Gallery, Popup Maker
-- Really Simple SSL, GDPR Cookie Compliance
-
-## Поддержка
-
-- Beget KB: [доступ к серверам (FTP/SSH)](https://beget.com/ru/kb/faq/hosting/dostup-k-serveram)
-- GitHub Actions деплой: [docs/DEPLOY.md](docs/DEPLOY.md)
+- WooCommerce, Contact Form 7, Yoast SEO
+- GDPR Cookie Compliance (Moove) — текст баннера из git через `db-sync.php`
+- Types (Toolset), WP Super Cache, Really Simple SSL

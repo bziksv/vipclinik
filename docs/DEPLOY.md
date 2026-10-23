@@ -2,29 +2,66 @@
 
 Репозиторий: [github.com/bziksv/vipclinik](https://github.com/bziksv/vipclinik)
 
-## Обычная схема (как billiard.guru)
+## Схема (как billiard.guru)
 
-**Локально:**
+```
+Mac: правки → git commit → git push origin main
+                              ↓
+Beget SSH: cd ~/vipclinik && ./scripts/beget-deploy.sh
+                              ↓
+         файлы на public_html + синхронизация БД
+```
+
+На сервере **нет** `git pull` в `public_html`. Git-репозиторий лежит отдельно:
+
+| Путь на Beget | Назначение |
+|---------------|------------|
+| `~/vipclinik` | git-репозиторий с GitHub |
+| `~/vipclinik.com/public_html` | живой сайт WordPress |
+
+---
+
+## Каждый деплой
+
+### Mac
+
 ```bash
 cd /Users/stanislav/Documents/projects/vipclinik
-git add ...
-git commit -m "описание"
+
+git status
+
+git add .gitignore router.php scripts/ vipclinik.com/.htaccess \
+  vipclinik.com/wp-content/documents/ \
+  vipclinik.com/wp-content/themes/clinic/
+
+git commit -m "кратко: что изменил"
 git push origin main
 ```
 
-**На Beget по SSH:**
-```bash
-cd ~/vipclinik
-git pull origin main
-./scripts/beget-deploy.sh
-```
+### Beget (SSH)
 
-Или одной командой (pull уже внутри):
 ```bash
 cd ~/vipclinik && ./scripts/beget-deploy.sh
 ```
 
-Проверка: https://vipclinik.com/wp-content/documents/consent.pdf
+Скрипт сам делает `git pull`, копирует файлы и запускает **`db-sync.php`**.
+
+Ожидаемый вывод:
+
+```
+→ wp-content/themes/clinic
+→ wp-content/documents
+→ .htaccess
+→ database sync
+  moove_gdpr_info_bar_content — обновлён
+✓ DB sync готово
+✓ Готово: https://vipclinik.com
+```
+
+### Проверка
+
+- https://vipclinik.com/wp-content/documents/consent.pdf — PDF открывается
+- https://vipclinik.com/ — cookie-баннер и формы со ссылками на `/wp-content/documents/...`
 
 ---
 
@@ -37,24 +74,25 @@ cd ~/vipclinik && ./scripts/beget-deploy.sh
 ### 2. Клон репозитория
 
 ```bash
-ssh USER@vipclinik.beget.tech
+ssh vipclinik_admin@vipclinik.beget.tech
 
 cd ~
-git clone git@github.com:bziksv/vipclinik.git vipclinik
+git clone https://github.com/bziksv/vipclinik.git vipclinik
 cd vipclinik
 chmod +x scripts/*.sh
 ```
 
-Если `git clone` по SSH не работает — добавь SSH-ключ Beget в GitHub (Settings → SSH keys) или клонируй по HTTPS.
+### 3. Путь к сайту (рекомендуется прописать в профиле)
 
-### 3. Путь к сайту
+```bash
+echo 'export BEGET_WEB=$HOME/vipclinik.com/public_html' >> ~/.bashrc
+source ~/.bashrc
+```
 
-По умолчанию скрипт кладёт файлы в `~/vipclinik.com/public_html`.
+Если `public_html` в другом месте:
 
-Если у тебя другой путь:
 ```bash
 export BEGET_WEB=/home/USER/vipclinik.com/public_html
-./scripts/beget-setup.sh
 ```
 
 ### 4. Первый деплой
@@ -68,20 +106,83 @@ cd ~/vipclinik
 
 ## Что выкладывается
 
-| Из git | → на сервер |
-|--------|-------------|
-| `wp-content/themes/clinic/` | тема |
-| `wp-content/documents/` | PDF политики |
-| `wp-content/plugins/types/.../adodb-time.inc.php` | патч PHP 7.4 |
-| `.htaccess` | редиректы PDF |
-| `scripts/db/gdpr-infobar.html` + `scripts/db-sync.php` | cookie-баннер и URL в БД |
+| Из git | Куда на сервере |
+|--------|-----------------|
+| `vipclinik.com/wp-content/themes/clinic/` | тема |
+| `vipclinik.com/wp-content/documents/` | PDF политики |
+| `vipclinik.com/.htaccess` | редиректы PDF, исключение `documents/` |
+| `vipclinik.com/wp-content/plugins/types/.../adodb-time.inc.php` | патч PHP 7.4 |
+| `scripts/db/gdpr-infobar.html` | → в БД через `db-sync.php` |
 
-**Не трогаем:** uploads, wp-config.php, ядро WP, плагины (кроме патча).
+**Не трогаем:** `uploads/`, `wp-config.php`, ядро WP, остальные плагины.
 
-При деплое **`db-sync.php`** автоматически:
-- обновляет текст cookie-баннера (Moove GDPR);
-- меняет старые ссылки на PDF в `wp_options`, формах CF7 и страницах.
-- текст чекбоксов форм на сайте задаёт тема (`main.js`) — тоже через git.
+---
+
+## Что править и где (чтобы попало на прод)
+
+| Задача | Файл в git | Попадает на прод через |
+|--------|------------|------------------------|
+| Тема, футер, формы (JS) | `wp-content/themes/clinic/` | копирование файлов |
+| PDF политики | `wp-content/documents/*.pdf` | копирование файлов |
+| Cookie-баннер (текст) | `scripts/db/gdpr-infobar.html` | `db-sync.php` → БД |
+| Ссылки на PDF в формах (на сайте) | `themes/clinic/js/main.js` | копирование + JS на фронте |
+| Редиректы со старых URL PDF | `vipclinik.com/.htaccess` | копирование |
+| Старые URL в БД (страницы, опции) | `scripts/db-sync.php` | автоматически при деплое |
+
+### URL документов на проде
+
+| Документ | URL |
+|----------|-----|
+| Cookies | `/wp-content/documents/cookies.pdf` |
+| Согласие ПДн | `/wp-content/documents/consent.pdf` |
+| Политика ПДн | `/wp-content/documents/personal-data.pdf` |
+| Рек. технологии | `/wp-content/documents/rules-recommendation.pdf` |
+
+Со старых путей (`uploads/2026/...`, длинные имена) — 301 в `.htaccess`.
+
+---
+
+## Синхронизация БД (`db-sync.php`)
+
+Запускается автоматически в `./scripts/beget-setup.sh`, если есть `wp-load.php`.
+
+Вручную на Beget:
+
+```bash
+cd ~/vipclinik
+BEGET_WEB=$HOME/vipclinik.com/public_html php scripts/db-sync.php
+```
+
+Локально (протестировать перед деплоем):
+
+```bash
+cd /Users/stanislav/Documents/projects/vipclinik
+BEGET_WEB="$(pwd)/vipclinik.com" php scripts/db-sync.php
+```
+
+**Делает:**
+- обновляет `moove_gdpr_info_bar_content` из `scripts/db/gdpr-infobar.html`;
+- заменяет старые URL PDF в `wp_options`, `wp_posts`, `wp_postmeta`;
+- сбрасывает кеш transients GDPR-плагина.
+
+**Формы CF7:** в админке в шаблоне чекбокса может быть `"1"` — на сайте текст подменяет `main.js` из темы (деploy файлов).
+
+---
+
+## Скрипты
+
+| Скрипт | Назначение |
+|--------|------------|
+| `scripts/beget-deploy.sh` | `git pull` + `beget-setup.sh` |
+| `scripts/beget-setup.sh` | копирование файлов + `db-sync.php` |
+| `scripts/db-sync.php` | обновление БД |
+| `scripts/beget-lib.sh` | путь `BEGET_WEB` |
+
+Только файлы, без pull:
+
+```bash
+cd ~/vipclinik && ./scripts/beget-setup.sh
+```
 
 ---
 
@@ -94,16 +195,30 @@ cd /Users/stanislav/Documents/projects/vipclinik
 
 → http://localhost:8888
 
+Порт занят:
+
+```bash
+kill $(lsof -t -i:8888) && ./start-local.sh
+```
+
+Подробнее: [LOCAL.md](LOCAL.md)
+
 ---
 
 ## Альтернатива: GitHub Actions + FTP
 
-Если не хочешь SSH — настроены секреты `BEGET_FTP_*`, деплой при `git push` или **Actions → Deploy to Beget → Run workflow**.
+Workflow `.github/workflows/deploy-beget.yml` — деплой по FTP при `git push`.
 
-FTP менее надёжен; **рекомендуется SSH + git pull**.
+Требует секреты `BEGET_FTP_*` в GitHub. **Основная схема — SSH + `beget-deploy.sh`**, FTP — запасной вариант.
 
 ---
 
-## Cookie-баннер (БД)
+## Если что-то пошло не так
 
-Текст GDPR-плагина в базе — после деплоя проверь ссылки на `/wp-content/documents/...` в админке WP или обнови вручную.
+| Проблема | Решение |
+|----------|---------|
+| PDF 404 | `./scripts/beget-deploy.sh`, проверить `~/vipclinik.com/public_html/wp-content/documents/` |
+| Старый текст cookie-баннера | править `scripts/db/gdpr-infobar.html` → push → deploy; или `php scripts/db-sync.php` |
+| Старые ссылки в формах на сайте | проверить `themes/clinic/js/main.js` задеплоился |
+| `BEGET_WEB` не найден | `export BEGET_WEB=$HOME/vipclinik.com/public_html` |
+| `git pull` конфликт | `git stash` → pull → stash pop, или разобрать конфликт вручную |

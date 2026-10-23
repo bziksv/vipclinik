@@ -29,30 +29,34 @@
 <?php if (file_exists(TEMPLATEPATH.'/ny-motnya.php')) {require(TEMPLATEPATH.'/ny-motnya.php');}; ?>
 
 <?php ob_start();
-	global $woocommerce;
-	$viewing_cart = __('Перейти в корзину', 'your-theme-slug');
-	$start_shopping = __('Продолжить покупки', 'your-theme-slug');
-	$cart_url = $woocommerce->cart->get_cart_url();
-	$shop_page_url = get_permalink( woocommerce_get_page_id( 'shop' ) );
-	$cart_contents_count = $woocommerce->cart->cart_contents_count;
-	$cart_contents = sprintf(_n('%d товар добавлен', '%d товаров добавлено', $cart_contents_count, 'your-theme-slug'), $cart_contents_count);
-	$cart_total = $woocommerce->cart->get_cart_total();
-	// Раскомментируйте строку ниже для того, чтобы скрыть иконку корзины в меню, когда нет добавленных товаров в корзине.
-	$menu_item = "";
-	 if ( $cart_contents_count > 0 ) {
-	 	$menu_item = '<div class="h_tovar">';
-		if ($cart_contents_count == 0) {
-			$menu_item .= '<a class="wcmenucart-contents" href="'. $shop_page_url .'" title="'. $start_shopping .'">';
+	$menu_item = '';
+	$wc_cart = null;
+	if ( function_exists( 'WC' ) && WC() && WC()->cart ) {
+		$wc_cart = WC()->cart;
+	} elseif ( ! empty( $GLOBALS['woocommerce']->cart ) ) {
+		$wc_cart = $GLOBALS['woocommerce']->cart;
+	}
+	if ( $wc_cart ) {
+		$viewing_cart = __( 'Перейти в корзину', 'your-theme-slug' );
+		if ( function_exists( 'wc_get_cart_url' ) ) {
+			$cart_url = wc_get_cart_url();
+		} elseif ( method_exists( $wc_cart, 'get_cart_url' ) ) {
+			$cart_url = $wc_cart->get_cart_url();
 		} else {
-			$menu_item .= '<a class="wcmenucart-contents" href="'. $cart_url .'" title="'. $viewing_cart .'">';
+			$cart_url = home_url( '/cart/' );
 		}
-
-		$menu_item .= '<i class="fa fa-shopping-cart"></i> ';
-
-		$menu_item .= $cart_contents.'<br>Перейти в корзину';
-		$menu_item .= '</a></div>';
-	// Раскомментируйте строку ниже для того, чтобы скрыть иконку корзины в меню, когда нет добавленных товаров в корзине.
-	 }
+		$cart_contents_count = method_exists( $wc_cart, 'get_cart_contents_count' )
+			? (int) $wc_cart->get_cart_contents_count()
+			: (int) $wc_cart->cart_contents_count;
+		$cart_contents = sprintf( _n( '%d товар добавлен', '%d товаров добавлено', $cart_contents_count, 'your-theme-slug' ), $cart_contents_count );
+		if ( $cart_contents_count > 0 ) {
+			$menu_item = '<div class="h_tovar">';
+			$menu_item .= '<a class="wcmenucart-contents" href="' . esc_url( $cart_url ) . '" title="' . esc_attr( $viewing_cart ) . '">';
+			$menu_item .= '<i class="fa fa-shopping-cart"></i> ';
+			$menu_item .= $cart_contents . '<br>Перейти в корзину';
+			$menu_item .= '</a></div>';
+		}
+	}
 	echo $menu_item;
 	$social = ob_get_clean();
  ?>
