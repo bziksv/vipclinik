@@ -2888,7 +2888,7 @@ margin-top: -60px;
 
 .send_proc {
 
-	display: block;
+	display: none; /* скрыта: вертикальная «Записаться на процедуру» */
 
 	position: fixed;
 
